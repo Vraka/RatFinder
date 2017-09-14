@@ -28,5 +28,5 @@ dependencies {
 }
 
 // Define the main class for the application
-mainClassName = 'App'
+mainClassName = 'edu.gatech.oad.antlab.pkg1.AntLabMain'
 

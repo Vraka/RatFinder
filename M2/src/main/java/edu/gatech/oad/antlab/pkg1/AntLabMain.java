@@ -1,7 +1,7 @@
 package edu.gatech.oad.antlab.pkg1;
 
 
-import edu.cs2335.antlab.pkg3.*;
+//import edu.cs2335.antlab.pkg3.*;
 import edu.gatech.oad.antlab.person.*;
 import edu.gatech.oad.antlab.pkg2.*;
 
@@ -27,7 +27,7 @@ import edu.gatech.oad.antlab.pkg2.*;
     private AntLab22 ant22;
     
     /**antlab31 java message class which is contained in a jar resource file*/
-    private AntLab31 ant31;
+    //private AntLab31 ant31;
     
     
     
@@ -40,7 +40,7 @@ import edu.gatech.oad.antlab.pkg2.*;
         ant12 = new AntLab12();
         ant21 = new AntLab21();
         ant22 = new AntLab22();
-        ant31 = new AntLab31();
+        //ant31 = new AntLab31();
         
         
     }
@@ -54,28 +54,28 @@ import edu.gatech.oad.antlab.pkg2.*;
         
         String toPrint = 
             ant11.getMessage() + ant12.getMessage() + ant21.getMessage()
-          + ant22.getMessage() + ant31.getMessage();
+          + ant22.getMessage() + " ";// + ant31.getMessage();
 		  //Person1 replace P1 with your name
 		  //and gburdell1 with your gt id
-		  Person1 p1 = new Person1("Katie Lee");
+		  Person1 p1 = new Person1("Katie Lee:");
 		  toPrint += p1.toString("903212742");
 		  //Person2 replace P2 with your name
 		  //and gburdell with your gt id
-		  Person2 p2 = new Person2("Nikhil Rajan");
+		  Person2 p2 = new Person2(" Nikhil Rajan:");
 		  toPrint += p2.toString("903221067");
 		  //Person3 replace P3 with your name
 		  //and gburdell3 with your gt id
-		  Person3 p3 = new Person3("Kunal Sharma");
+		  Person3 p3 = new Person3(" Kunal Sharma:");
 		  toPrint += p3.toString("903249263");
                   //Person4 replace P4 with your name
                   //and gburdell4 with your gt id
-                  Person4 p4 = new Person4("Yetunde Maria Ogunlusi");
+                  Person4 p4 = new Person4(" Yetunde Maria Ogunlusi:");
                   toPrint += p4.toString("903026914");
                   //Person5 replace P4 with your name
                   //and gburdell5 with your gt id
-                  Person5 p5 = new Person5("Spero Calamas");
+                  Person5 p5 = new Person5(" Spero Calamas:");
                   toPrint += p5.toString("903241736");
-		Person6 p6 = new Person6("Shane Austrie");
+		Person6 p6 = new Person6(" Shane Austrie:");
         toPrint += p6.toString("903220117");
 
         System.out.println(toPrint);

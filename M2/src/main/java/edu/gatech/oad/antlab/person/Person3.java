@@ -9,12 +9,6 @@ package edu.gatech.oad.antlab.person;
  */
 public class Person3 {
 
-	public static void main(String[] args){
-
-		Person3 test = new Person3("James");
-		System.out.println(test.calc("Kunal123"));
-	}
-
 	/** Holds the persons real name */
 	public String name;
 
@@ -51,7 +45,7 @@ public class Person3 {
 	public String calc(String input) {
 
 		String newString ="";
-		for(int i = input.length(); i > 0 ; i--){
+		for(int i = input.length()-1; i >= 0 ; i--){
 			newString += input.charAt(i);
 		}
 		return newString;
