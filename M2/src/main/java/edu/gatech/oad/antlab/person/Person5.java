@@ -33,7 +33,7 @@ public class Person5 {
 	  //Person 5 put your implementation here
 		String rotated = "";
 		for (int i = 0; i < input.length; i++) {
-			rotated .= input.charAt[(i + 2) % input.length];
+			rotated += input.charAt[(i + 2) % input.length];
 		}
 	  return rotated;
 	}
