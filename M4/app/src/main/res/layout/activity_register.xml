@@ -45,7 +45,7 @@
         android:layout_height="wrap_content">
         <android.support.design.widget.TextInputEditText
             android:id="@+id/usernameEditTextRegister"
-            android:hint="Username"
+            android:hint="Username (Email)"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </android.support.design.widget.TextInputLayout>
@@ -54,27 +54,39 @@
         android:layout_marginTop="50dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <android.support.design.widget.TextInputEditText
             android:id="@+id/passwordEditTextRegister"
-            android:hint="Password"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint="Password"
+            android:inputType="textPassword" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
         android:layout_marginTop="50dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <android.support.design.widget.TextInputEditText
             android:id="@+id/password2EditTextRegister"
-            android:hint="Retype password"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint="Retype password"
+            android:inputType="textPassword" />
     </android.support.design.widget.TextInputLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+        <ToggleButton
+            android:layout_centerHorizontal="true"
+            android:id="@+id/adminToggleRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textOn="Admin Status On"
+            android:textOff="Admin Status Off" />
+
         <Button
             android:id="@+id/registerButtonRegister"
             android:layout_marginTop="50dp"
@@ -84,6 +96,7 @@
             android:textColor="@color/colorPrimary"
             android:background="@color/colorPrimaryDark"
             android:textSize="18sp"
+            android:onClick="checkPassword"
             android:text="Register" />
     </RelativeLayout>
     </LinearLayout>

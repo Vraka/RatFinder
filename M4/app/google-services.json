@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "577020186442",
+    "firebase_url": "https://smokegod-2ce47.firebaseio.com",
+    "project_id": "smokegod-2ce47",
+    "storage_bucket": "smokegod-2ce47.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:577020186442:android:c81b50b452475af8",
+        "android_client_info": {
+          "package_name": "com.smokegod.cs2340.m3"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "577020186442-fi8ma0c1b159mj51pn5m4lmem99ff06a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.smokegod.cs2340.m3",
+            "certificate_hash": "ad58f63c9a2f3bd64648faeeed5185a0818f3cec"
+          }
+        },
+        {
+          "client_id": "577020186442-a7tiv592qqv5daughs7lkhpkopuustgb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnkiJkbxoM2srzBYp4LaTRLXqSe9baEuo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "577020186442-a7tiv592qqv5daughs7lkhpkopuustgb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
