@@ -38,7 +38,8 @@
         android:tint="@color/colorPrimary"
         android:src="@android:drawable/ic_input_add"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"/>
+        android:layout_alignParentRight="true"
+        android:onClick="goToList"/>
     </RelativeLayout>
 
     </FrameLayout>

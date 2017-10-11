@@ -13,6 +13,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.io.InputStream;
+import java.util.List;
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
@@ -53,5 +56,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Intent i = new Intent(MapsActivity.this, AuthActivity.class);
         startActivity(i);
         finish();
+    }
+
+    public void goToList(View v) {
+        Intent i = new Intent(MapsActivity.this, ListActivity.class);
+        startActivity(i);
     }
 }
