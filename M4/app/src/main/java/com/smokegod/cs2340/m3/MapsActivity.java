@@ -62,4 +62,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Intent i = new Intent(MapsActivity.this, ListActivity.class);
         startActivity(i);
     }
+
+    public void goToInput(View v) {
+        Intent i = new Intent(MapsActivity.this, InputActivity.class);
+        startActivity(i);
+    }
 }
