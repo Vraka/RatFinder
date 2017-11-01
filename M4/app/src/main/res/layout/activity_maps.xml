@@ -1,46 +1,54 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.smokegod.cs2340.m3.AuthActivity">
+    android:orientation="vertical"
+    tools:context="com.smokegod.cs2340.m3.MapsActivity">
 
-    <include layout="@layout/fragment_maps" />
+    <!--<include layout="@layout/map_date_selector_bar" />-->
 
-    <RelativeLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="16dp">
+        android:layout_height="match_parent">
 
-        <android.support.design.widget.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@android:drawable/ic_menu_close_clear_cancel"
-            android:backgroundTint="@color/colorPrimaryDark"
-            android:tint="@color/colorPrimary"
-            android:layout_alignParentTop="true"
-            android:onClick="attemptLogout"
-            android:layout_alignParentLeft="true"/>
+        <include layout="@layout/fragment_maps" />
 
-        <android.support.design.widget.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorPrimaryDark"
-            android:tint="@color/colorPrimary"
-            android:src="@drawable/settings_icon"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:onClick="goToList"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="16dp">
 
-    <android.support.design.widget.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/colorPrimaryDark"
-        android:tint="@color/colorPrimary"
-        android:src="@android:drawable/ic_input_add"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:onClick="goToInput"/>
-    </RelativeLayout>
+            <android.support.design.widget.FloatingActionButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:onClick="attemptLogout"
+                android:src="@android:drawable/ic_menu_close_clear_cancel"
+                android:tint="@color/colorPrimary" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:onClick="goToList"
+                android:src="@drawable/settings_icon"
+                android:tint="@color/colorPrimary" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:onClick="goToInput"
+                android:src="@android:drawable/ic_input_add"
+                android:tint="@color/colorPrimary" />
+        </RelativeLayout>
 
     </FrameLayout>
+</LinearLayout>

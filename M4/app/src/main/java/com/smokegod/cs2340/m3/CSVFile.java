@@ -6,8 +6,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.reflect.Array;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -89,6 +90,46 @@ public class CSVFile {
                     }
                 }
                 count++;
+            }
+        }
+        catch (IOException ex) {
+            throw new RuntimeException("Error in reading CSV file: "+ex);
+        }
+        finally {
+            try {
+                inputStream.close();
+            }
+            catch (IOException e) {
+                throw new RuntimeException("Error while closing input stream: "+e);
+            }
+        }
+        return resultList;
+    }
+
+    public ArrayList search(long startDate, long endDate){
+        ArrayList resultList = new ArrayList<RatSighting>();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        try {
+            String csvLine;
+
+            //Skip first line
+            reader.readLine();
+
+            while ((csvLine = reader.readLine()) != null) {
+                String[] row = csvLine.split(",");
+                String createdString = row[1].substring(0, 10);
+                try {
+                    SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+                    Date date = sdf.parse(createdString);
+
+                    long created = date.getTime();
+
+                    if ((startDate <= created) && (endDate >= created) && (row.length > 40)) {
+                        resultList.add(new RatSighting(row[0], row[1], row[7], row[8], row[9], row[16], row[23], row[49], row[50]));
+                    }
+                } catch (Exception e) {
+                    Log.d("MapsActivity", "Error: " + e.toString());
+                }
             }
         }
         catch (IOException ex) {

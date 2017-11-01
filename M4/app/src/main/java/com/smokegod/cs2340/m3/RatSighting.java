@@ -35,6 +35,13 @@ public class RatSighting implements Serializable {
         this.longitude = longitude;
     }
 
+    public String toString() {
+        String s = "Unique Key: " + key + "\n"
+                + "Date Created: " + date + "\n"
+                + "Address: " + address;
+        return s;
+    }
+
     /**
      * Returns the Unique key of the sighting object
      *

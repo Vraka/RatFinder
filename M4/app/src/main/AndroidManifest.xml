@@ -16,18 +16,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SplashActivity">
+        <activity
+            android:name=".SplashActivity"
+            android:theme="@style/AppTheme_NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AuthActivity" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".ListActivity"/>
-        <activity android:name=".SightingActivity"/>
-        <activity android:name=".InputActivity"/>
+        <activity
+            android:name=".AuthActivity"
+            android:theme="@style/AppTheme_NoActionBar" />
+        <activity
+            android:name=".RegisterActivity"
+            android:theme="@style/AppTheme_NoActionBar" />
+        <activity android:name=".ListActivity" />
+        <activity android:name=".SightingActivity" />
+        <activity android:name=".InputActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -42,7 +48,8 @@
 
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
+            android:label="@string/title_activity_maps" />
+        <activity android:name=".FilterByDateActivity"></activity>
     </application>
 
 </manifest>
