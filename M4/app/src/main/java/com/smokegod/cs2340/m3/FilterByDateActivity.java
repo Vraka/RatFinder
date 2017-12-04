@@ -12,6 +12,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CalendarView;
 
+import java.util.Calendar;
+
 public class FilterByDateActivity extends AppCompatActivity {
 
     private boolean firstChange;
@@ -23,15 +25,27 @@ public class FilterByDateActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filter_by_date);
         calendar = (CalendarView) findViewById(R.id.filterByDateCalendar);
+        calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            //show the selected date as a toast
+            @Override
+            public void onSelectedDayChange(CalendarView view, int year, int month, int day) {
+                Calendar c = Calendar.getInstance();
+                c.set(year, month, day);
+                Log.d("MapsActivity", "onSelectedDayChange: " + c.getTimeInMillis());
+                collectDate(c.getTimeInMillis());
+            }
+        });
+        firstDate = calendar.getDate();
+        secondDate = firstDate;
         firstChange = true;
         changeHeader();
     }
 
-    private void collectDate() {
+    private void collectDate(long l) {
         if (firstChange) {
-            firstDate = calendar.getDate();
+            firstDate = l;
         } else {
-            secondDate = calendar.getDate();
+            secondDate = l;
         }
     }
 
@@ -69,7 +83,7 @@ public class FilterByDateActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        collectDate();
+//        collectDate();
         if (id == R.id.action_next) {
             firstChange = false;
             changeHeader();

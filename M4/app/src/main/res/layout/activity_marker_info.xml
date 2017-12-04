@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.smokegod.cs2340.m3.MarkerInfoActivity">
+
+    <TextView
+        android:id="@+id/markerinfo_locationTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Location"/>
+
+    <TextView
+        android:id="@+id/markerinfo_timeTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Time" />
+
+    <TextView
+        android:id="@+id/markerinfo_boroughTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Borough" />
+
+</LinearLayout>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:title="Stats"
+        android:id="@+id/map_nav_menu_item_stats"
+        android:icon="@drawable/search_icon"
+        android:orderInCategory="100"
+        app:showAsAction="always"/>
+
+    <item
+        android:title="Settings"
+        android:id="@+id/map_nav_menu_item_settings"
+        android:icon="@drawable/search_icon"
+        android:orderInCategory="100"
+        app:showAsAction="always"/>
+
+    <item
+        android:title="User Control"
+        android:id="@+id/map_nav_menu_item_uc"
+        android:icon="@drawable/search_icon"
+        android:orderInCategory="100"
+        app:showAsAction="always"/>
+    <item
+        android:title="Home"
+        android:id="@+id/map_nav_menu_item_home"
+        android:icon="@drawable/search_icon"
+        android:orderInCategory="100"
+        app:showAsAction="always"/>
+
+</menu>

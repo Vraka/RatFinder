@@ -5,10 +5,16 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class AuthActivity extends AppCompatActivity {
 
@@ -18,12 +24,14 @@ public class AuthActivity extends AppCompatActivity {
     private Runnable loginHandlerRunnable;
     private TextView usernameTV;
     private TextView passwordTV;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth);
 
+        mAuth = FirebaseAuth.getInstance();
         usernameTV = (TextView) findViewById(R.id.usernameEditTextAuth);
         passwordTV = (TextView) findViewById(R.id.passwordEditTextAuth);
 
@@ -35,16 +43,36 @@ public class AuthActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        if (usernameTV.getEditableText().toString().equals("shane") &&
-                                passwordTV.getEditableText().toString().equals("password")) {
+                        String email = usernameTV.getEditableText().toString();
+                        String password = passwordTV.getEditableText().toString();
+                        if (email.isEmpty() || password.isEmpty()) {
+                            progress.hide();
+                            Toast t = Toast.makeText(AuthActivity.this, "No input can be empty",
+                                    Toast.LENGTH_LONG);
+                            t.show();
+                        } else if (email.equals("shane") && password.equals("password")) {
                             Intent i = new Intent(AuthActivity.this, MapsActivity.class);
                             startActivity(i);
                             finish();
                         } else {
-                            progress.hide();
-                            Toast t = Toast.makeText(AuthActivity.this, "Wrong login information",
-                                    Toast.LENGTH_LONG);
-                            t.show();
+                            mAuth.signInWithEmailAndPassword(email, password)
+                                    .addOnCompleteListener(AuthActivity.this, new OnCompleteListener<AuthResult>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<AuthResult> task) {
+                                            if (task.isSuccessful()) {
+                                                // Sign in success, update UI with the signed-in user's information
+                                                Intent i = new Intent(AuthActivity.this, MapsActivity.class);
+                                                startActivity(i);
+                                                finish();
+                                            } else {
+                                                // If sign in fails, display a message to the user.
+                                                progress.hide();
+                                                Toast t = Toast.makeText(AuthActivity.this, "Wrong login information",
+                                                        Toast.LENGTH_LONG);
+                                                t.show();
+                                            }
+                                        }
+                                    });
                         }
                     }
                 });

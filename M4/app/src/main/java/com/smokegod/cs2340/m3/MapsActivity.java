@@ -1,14 +1,15 @@
 package com.smokegod.cs2340.m3;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,17 +20,21 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.InputStream;
 import java.util.ArrayList;
 
-public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback,
+                                                                NavigationView.OnNavigationItemSelectedListener {
 
     private GoogleMap mMap;
     private long firstDate = -1;
     private long secondDate = -1;
+    private NavigationView navigationView;
+    private DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +45,36 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        String title = "U Dirty Rat";
-        SpannableString s = new SpannableString(title);
-        s.setSpan(new ForegroundColorSpan(Color.WHITE), 0, title.length(),
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        getSupportActionBar().setTitle(s);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("");
+        setSupportActionBar(toolbar);
+
+        navigationView = (NavigationView) findViewById(R.id.maps_navigation);
+        drawer = (DrawerLayout) findViewById(R.id.maps_drawer);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.setDrawerIndicatorEnabled(true);
+        toggle.syncState();
+
+        Log.d("TEXTVIEWE", "about to call");
+        drawer.closeDrawers();
+        navigationView.setNavigationItemSelectedListener(this);
+//        String title = "U Dirty Rat";
+//        SpannableString s = new SpannableString(title);
+//        s.setSpan(new ForegroundColorSpan(Color.WHITE), 0, title.length(),
+//                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+//        getSupportActionBar().setTitle(s);
+//        drawer = (DrawerLayout) findViewById(R.id.maps_drawer);
+//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+//                this, drawer, getSupportActionBar(), R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+//        drawer.setDrawerListener(toggle);
+//        navigToolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+
+//        toggle.syncState();
+
     }
 
 
@@ -81,6 +111,19 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         } else {
             loadSearch();
         }
+
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener()
+        {
+
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                Intent i = new Intent(MapsActivity.this, MarkerInfoActivity.class);
+//                i.putExtra(marker.)
+                startActivity(i);
+                return true;
+            }
+
+        });
     }
 
     public void attemptLogout(View v) {
@@ -137,7 +180,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         log();
         if (!(firstDate == -1) || !(secondDate == -1)) {
             if (mMap != null) {
-                mMap.clear();
                 loadSearch();
             }
         }
@@ -151,16 +193,23 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             public void run() {
                 InputStream inputStream = getResources().openRawResource(R.raw.rat_sightings);
                 log();
-                ArrayList<RatSighting> pointers = (new CSVFile(inputStream))
+                final ArrayList<RatSighting> pointers = (new CSVFile(inputStream))
                         .search(firstDate, secondDate);
+                mMap.clear();
                 if (!(pointers.size() > 200)) {
                     for (int i = 0; i < pointers.size(); i++) {
                         // Add a marker
                         try {
-                            LatLng pointer = new LatLng(Double.parseDouble(pointers.get(i).getLatitude()),
+                            final LatLng pointer = new LatLng(Double.parseDouble(pointers.get(i).getLatitude()),
                                     Double.parseDouble(pointers.get(i).getLongitude()));
-                            mMap.addMarker(new MarkerOptions().position(pointer)
-                                    .title(pointers.get(i).toString()));
+                            final int finalI = i;
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mMap.addMarker(new MarkerOptions().position(pointer)
+                                            .title(pointers.get(finalI).toString()));
+                                }
+                            });
                         } catch (Exception e) {
                             Log.d("MapsActivity", e.toString());
                         }
@@ -179,11 +228,43 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     }
                 }
             }
-        }.run();
+        }
+        .run();
+
+        //Temp fix for m8 start
+//        mMap.clear();
+//        if (!(firstDate >= Long.valueOf("1487221200000"))) {
+//            InputStream inputStream = getResources().openRawResource(R.raw.rat_sightings);
+//            Random rand = new Random();
+//            int n = (rand.nextInt(50) + 51) * 2;
+//
+//            ArrayList<RatSighting> pointers = (new CSVFile(inputStream)).read(n);
+//            for (int i = 0; i < n; i++) {
+//                // Add a marker
+//                try {
+//                    LatLng pointer = new LatLng(Double.parseDouble(pointers.get(i).getLatitude()),
+//                            Double.parseDouble(pointers.get(i).getLongitude()));
+//                    mMap.addMarker(new MarkerOptions().position(pointer)
+//                            .title(pointers.get(i).toString()));
+//                    if (i == 0) {
+//                        mMap.moveCamera(CameraUpdateFactory.newLatLng(pointer));
+//                    }
+//                } catch (Exception e) {
+//                    Log.d("MapsActivity", e.toString());
+//                }
+//            }
+//
+//        }
+        //Temp fix for m8 end
     }
 
     private void log() {
         Log.d("MapsActivity", "First Date: " + firstDate
                 + " Second Date: " + secondDate);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        return true;
     }
 }
