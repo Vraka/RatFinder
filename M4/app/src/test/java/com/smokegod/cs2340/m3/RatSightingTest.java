@@ -157,13 +157,6 @@ public class RatSightingTest {
             int responseCode = conn.getResponseCode();
             System.out.println("\nSending 'POST' request to URL : " + url);
             System.out.println("Response Code : " + responseCode);
-            //System.out.println(conn.getResponseMessage());
-            /*Scanner errors = new Scanner(conn.getErrorStream());
-            String errorStr = "";
-            while(errors.hasNext()) {
-                errorStr += errors.nextLine();
-            }
-            System.out.println("Error message: " + errorStr);*/
 
             // read the response
             InputStream in = new BufferedInputStream(conn.getInputStream());
