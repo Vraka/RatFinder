@@ -131,7 +131,7 @@ public class RatSightingTest {
 
     @Test
     public void HTTP_Test() {
-        HTTPPostReq.register("androidusr1", "password","test@test.com",false);
+        System.out.println(HTTPPostReq.login("androidusr1", "password"));
     }
 
 

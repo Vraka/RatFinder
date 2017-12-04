@@ -8,6 +8,9 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import io.jsonwebtoken.JwtParser;
+import io.jsonwebtoken.Jwts;
+
 /**
  * Created by Vraka on 12/4/2017.
  */
@@ -15,9 +18,11 @@ import java.net.URL;
 public class HTTPPostReq {
 
     private static String token;
+    private static boolean isAdmin;
 
     public HTTPPostReq() {
         token = null;
+        isAdmin = false;
     }
 
     private static void setToken(String token_input) {
@@ -26,6 +31,14 @@ public class HTTPPostReq {
 
     public static String getToken() {
         return token;
+    }
+
+    private static void setAdmin(boolean admin_input) {
+        isAdmin = admin_input;
+    }
+
+    public static boolean isAdmin() {
+        return isAdmin;
     }
 
     public static String sendPost(String urlStr, String dataJSON) {
@@ -74,6 +87,7 @@ public class HTTPPostReq {
         String msg = parseMessage(resp);
         if(msg.equalsIgnoreCase("login successful")) {
             setToken(parseToken(resp));
+            //System.out.println(Jwts.parser().parse(getToken()).getBody().toString());
             return 0;
         } else if(msg.equalsIgnoreCase("cannot find user")) {
             return 2;
@@ -91,6 +105,9 @@ public class HTTPPostReq {
             return 1;
         } else if(msg.equalsIgnoreCase("register successful")) {
             setToken(parseToken(resp));
+            if(isAdmin) {
+                setAdmin(true);
+            }
             return 0;
         } else {
             return -1;
