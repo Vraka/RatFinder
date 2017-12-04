@@ -1,5 +1,6 @@
 package com.smokegod.cs2340.m3;
 
+import java.io.PipedInputStream;
 import java.io.Serializable;
 
 /**
@@ -27,8 +28,16 @@ public class RatSighting implements Serializable {
         this.key = key;
         this.date = date;
         this.loc_type = loc_type;
-        this.zip = zip;
-        this.address = address;
+        if(zip != null) {
+            this.zip = zip;
+        } else {
+            throw new java.lang.IllegalArgumentException("Cannot have a null zip");
+        }
+        if(address != null) {
+            this.address = address;
+        } else {
+            throw new java.lang.IllegalArgumentException("Cannot have a null address");
+        }
         this.city = city;
         this.borough = borough;
         this.latitude = latitude;
@@ -58,7 +67,11 @@ public class RatSighting implements Serializable {
      * @param key Unique key to be assigned to the object
      */
     public void setKey(String key) {
-        this.key = key;
+        if(key != null) {
+            this.key = key;
+        } else {
+            throw new java.lang.IllegalArgumentException("Input Key cannot be null");
+        }
     }
 
     /**
@@ -75,23 +88,29 @@ public class RatSighting implements Serializable {
      * @param date Date to be assigned to the sighting
      */
     public void setDate(String date) {
-        this.date = date;
+        if(date != null) {
+            this.date = date;
+        } else {
+            throw new java.lang.IllegalArgumentException("Date cannot be null");
+        }
     }
 
     /**
      * Returns the location type of the sighting
      * @return The location type of the sighting
      */
-    public String getLoc_type() {
-        return loc_type;
-    }
+    public String getLoc_type() { return loc_type; }
 
     /**
      * Sets the location type of the sighting
      * @param loc_type to be assigned to the sighting
      */
     public void setLoc_type(String loc_type) {
-        this.loc_type = loc_type;
+        if(loc_type != null) {
+            this.loc_type = loc_type;
+        } else {
+            throw new java.lang.IllegalArgumentException("Location type cannot be null");
+        }
     }
 
     /**
@@ -107,7 +126,19 @@ public class RatSighting implements Serializable {
      * @param zip Zip code to be assigned to the sighting
      */
     public void setZip(String zip) {
-        this.zip = zip;
+        if(zip != null) {
+            if(zip.length() != 5) {
+                throw new java.lang.IllegalArgumentException("Zip must be a 5 number string");
+            }
+            for(int i = 0; i < zip.length(); i++) {
+                if (!Character.isDigit(zip.charAt(i))) {
+                    throw new java.lang.IllegalArgumentException("Zip must be a 5 number string");
+                }
+            }
+            this.zip = zip;
+        } else {
+            throw new java.lang.IllegalArgumentException("Zip cannot be null");
+        }
     }
 
     /**
@@ -139,7 +170,11 @@ public class RatSighting implements Serializable {
      * @param city to be assigned to the sighting
      */
     public void setCity(String city) {
-        this.city = city;
+        if(city != null) {
+            this.city = city;
+        } else {
+            throw new java.lang.IllegalArgumentException("City cannot be null");
+        }
     }
 
     /**
