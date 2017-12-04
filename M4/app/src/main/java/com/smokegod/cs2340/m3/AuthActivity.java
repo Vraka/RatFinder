@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.smokegod.cs2340.m3.db.Database;
 
 public class AuthActivity extends AppCompatActivity {
 
@@ -88,8 +89,9 @@ public class AuthActivity extends AppCompatActivity {
     }
 
     public void goToRegistration(View v) {
-        Intent i = new Intent(AuthActivity.this, RegisterActivity.class);
-        startActivity(i);
+        Database.register("austrieshane@gmail.com", "password");
+//        Intent i = new Intent(AuthActivity.this, RegisterActivity.class);
+//        startActivity(i);
     }
 
     public void attemptLogin(View v) {
