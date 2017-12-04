@@ -1,5 +1,6 @@
 package com.smokegod.cs2340.m3;
 
+import android.os.StrictMode;
 import android.util.Log;
 
 import java.io.BufferedInputStream;
@@ -9,10 +10,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
-import io.jsonwebtoken.Jwt;
-import io.jsonwebtoken.JwtParser;
-import io.jsonwebtoken.Jwts;
 
 /**
  * Created by Vraka on 12/4/2017.
@@ -24,6 +21,8 @@ public class HTTPPostReq {
     private static boolean isAdmin;
 
     public HTTPPostReq() {
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         token = null;
         isAdmin = false;
     }
@@ -74,8 +73,10 @@ public class HTTPPostReq {
             }
             br.close();
             System.out.println("Message: " + sb.toString());
+            Log.d("Database: SBSTRING", sb.toString());
             return sb.toString();
         } catch (Exception e) {
+            Log.d("Database: Error", e.toString());
             return e.getMessage();
         } finally {
             if (conn != null) {
@@ -86,10 +87,7 @@ public class HTTPPostReq {
     }
 
     public static int login(String login_name, String password) {
-        Log.d("Database: ", login_name);
-        Log.d("Database: ", password);
         String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/login", "{\"login_name\": \""+login_name+"\",\"password\": \""+password+"\"}");
-        Log.d("Database: ", resp);
         String msg = parseMessage(resp);
         if(msg.equalsIgnoreCase("login successful")) {
             setToken(parseToken(resp));

@@ -5,15 +5,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class AuthActivity extends AppCompatActivity {
@@ -45,9 +41,10 @@ public class AuthActivity extends AppCompatActivity {
                     public void run() {
                         String email = usernameTV.getEditableText().toString();
                         String password = passwordTV.getEditableText().toString();
+                        Toast t = null;
                         if (email.isEmpty() || password.isEmpty()) {
                             progress.hide();
-                            Toast t = Toast.makeText(AuthActivity.this, "No input can be empty",
+                            t = Toast.makeText(AuthActivity.this, "No input can be empty",
                                     Toast.LENGTH_LONG);
                             t.show();
                         } else if (email.equals("shane") && password.equals("password")) {
@@ -55,24 +52,54 @@ public class AuthActivity extends AppCompatActivity {
                             startActivity(i);
                             finish();
                         } else {
-                            mAuth.signInWithEmailAndPassword(email, password)
-                                    .addOnCompleteListener(AuthActivity.this, new OnCompleteListener<AuthResult>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<AuthResult> task) {
-                                            if (task.isSuccessful()) {
-                                                // Sign in success, update UI with the signed-in user's information
-                                                Intent i = new Intent(AuthActivity.this, MapsActivity.class);
-                                                startActivity(i);
-                                                finish();
-                                            } else {
-                                                // If sign in fails, display a message to the user.
-                                                progress.hide();
-                                                Toast t = Toast.makeText(AuthActivity.this, "Wrong login information",
-                                                        Toast.LENGTH_LONG);
-                                                t.show();
-                                            }
-                                        }
-                                    });
+
+                            int result = HTTPPostReq.login(email, password);
+
+                            switch (result) {
+                                case (0):
+                                    Intent i = new Intent(AuthActivity.this, MapsActivity.class);
+                                    startActivity(i);
+                                    finish();
+                                    break;
+                                case (1):
+                                    progress.hide();
+                                    t = Toast.makeText(AuthActivity.this, "Incorrect username or password",
+                                            Toast.LENGTH_LONG);
+                                    t.show();
+                                    break;
+                                case (2):
+                                    progress.hide();
+                                    t = Toast.makeText(AuthActivity.this, "Incorrect username or password",
+                                            Toast.LENGTH_LONG);
+                                    t.show();
+                                    break;
+                                default:
+                                    progress.hide();
+                                    t = Toast.makeText(AuthActivity.this, "Server Error",
+                                            Toast.LENGTH_LONG);
+                                    t.show();
+                                    break;
+                            }
+
+                            //Old Firebase code
+//                            mAuth.signInWithEmailAndPassword(email, password)
+//                                    .addOnCompleteListener(AuthActivity.this, new OnCompleteListener<AuthResult>() {
+//                                        @Override
+//                                        public void onComplete(@NonNull Task<AuthResult> task) {
+//                                            if (task.isSuccessful()) {
+//                                                // Sign in success, update UI with the signed-in user's information
+//                                                Intent i = new Intent(AuthActivity.this, MapsActivity.class);
+//                                                startActivity(i);
+//                                                finish();
+//                                            } else {
+//                                                // If sign in fails, display a message to the user.
+//                                                progress.hide();
+//                                                Toast t = Toast.makeText(AuthActivity.this, "Wrong login information",
+//                                                        Toast.LENGTH_LONG);
+//                                                t.show();
+//                                            }
+//                                        }
+//                                    });
                         }
                     }
                 });
@@ -82,15 +109,14 @@ public class AuthActivity extends AppCompatActivity {
         loginThread = new Thread(new Runnable() {
             @Override
             public void run() {
-                loginHandler.postDelayed(loginHandlerRunnable, 5000);
+                loginHandler.postDelayed(loginHandlerRunnable, 2000);
             }
         });
     }
 
     public void goToRegistration(View v) {
-        //Database.register("austrieshane@gmail.com", "password");
-//        Intent i = new Intent(AuthActivity.this, RegisterActivity.class);
-//        startActivity(i);
+        Intent i = new Intent(AuthActivity.this, RegisterActivity.class);
+        startActivity(i);
     }
 
     public void attemptLogin(View v) {
