@@ -1,5 +1,7 @@
 package com.smokegod.cs2340.m3;
 
+import android.util.Log;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -8,6 +10,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import io.jsonwebtoken.Jwt;
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
 
@@ -83,11 +86,14 @@ public class HTTPPostReq {
     }
 
     public static int login(String login_name, String password) {
+        Log.d("Database: ", login_name);
+        Log.d("Database: ", password);
         String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/login", "{\"login_name\": \""+login_name+"\",\"password\": \""+password+"\"}");
+        Log.d("Database: ", resp);
         String msg = parseMessage(resp);
         if(msg.equalsIgnoreCase("login successful")) {
             setToken(parseToken(resp));
-            //System.out.println(Jwts.parser().parse(getToken()).getBody().toString());
+            //System.out.println(Jwt.);
             return 0;
         } else if(msg.equalsIgnoreCase("cannot find user")) {
             return 2;
