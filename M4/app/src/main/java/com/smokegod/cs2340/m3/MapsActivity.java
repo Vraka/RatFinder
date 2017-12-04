@@ -39,6 +39,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (HTTPPostReq.getToken() == null) {
+            Intent i = new Intent(MapsActivity.this, AuthActivity.class);
+            startActivity(i);
+            finish();
+        }
         getExtra(savedInstanceState);
         setContentView(R.layout.activity_maps);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.

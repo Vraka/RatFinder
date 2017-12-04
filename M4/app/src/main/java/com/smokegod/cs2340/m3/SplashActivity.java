@@ -26,6 +26,7 @@ public class SplashActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+                                new HTTPPostReq();
                                 Intent i = new Intent(SplashActivity.this, AuthActivity.class);
                                 startActivity(i);
                                 finish();

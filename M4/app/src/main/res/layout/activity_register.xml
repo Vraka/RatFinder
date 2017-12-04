@@ -79,14 +79,6 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <ToggleButton
-            android:layout_centerHorizontal="true"
-            android:id="@+id/adminToggleRegister"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textOn="Admin Status On"
-            android:textOff="Admin Status Off" />
-
         <Button
             android:id="@+id/registerButtonRegister"
             android:layout_marginTop="50dp"
