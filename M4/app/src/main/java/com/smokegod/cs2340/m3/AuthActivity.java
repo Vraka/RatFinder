@@ -88,8 +88,9 @@ public class AuthActivity extends AppCompatActivity {
     }
 
     public void goToRegistration(View v) {
-        Intent i = new Intent(AuthActivity.this, RegisterActivity.class);
-        startActivity(i);
+        //Database.register("austrieshane@gmail.com", "password");
+//        Intent i = new Intent(AuthActivity.this, RegisterActivity.class);
+//        startActivity(i);
     }
 
     public void attemptLogin(View v) {

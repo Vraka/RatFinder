@@ -17,6 +17,13 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 public class RegisterActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
@@ -88,17 +95,41 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void attemptRegister() {
-        mAuth.createUserWithEmailAndPassword(usernameET.getEditableText().toString(),
-                passwordET.getEditableText().toString()).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (!task.isSuccessful()) {
-                    Toast t = Toast.makeText(RegisterActivity.this, "There seems to be an error " +
-                                    "with your registration information! Maybe try a longer password!",
-                            Toast.LENGTH_LONG);
-                    t.show();
-                }
-            }
-        });
+        HttpURLConnection client = null;
+        try {
+            URL url = new URL("https://desolate-taiga-94108.herokuapp.com/api/register");
+            client = (HttpURLConnection) url.openConnection();
+            client.setRequestMethod("POST");
+            client.setRequestProperty("login_name","username");
+            client.setRequestProperty("password","password");
+            client.setRequestProperty("contact_info","test@test.com");
+            client.setRequestProperty("isAdmin","true");
+            client.setDoOutput(true);
+            BufferedOutputStream outputPost = new BufferedOutputStream(client.getOutputStream());
+            String output = "";
+            outputPost.write(output.getBytes());
+            System.out.println(output);
+            outputPost.flush();
+            outputPost.close();
+        } catch (Exception e) {
+
+        } finally {
+            if(client != null) // Make sure the connection is not null.
+                client.disconnect();
+        }
+
+
+        //mAuth.createUserWithEmailAndPassword(usernameET.getEditableText().toString(),
+        //        passwordET.getEditableText().toString()).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+        //   @Override
+        //    public void onComplete(@NonNull Task<AuthResult> task) {
+        //        if (!task.isSuccessful()) {
+        //            Toast t = Toast.makeText(RegisterActivity.this, "There seems to be an error " +
+        //                            "with your registration information! Maybe try a longer password!",
+        //                    Toast.LENGTH_LONG);
+        //            t.show();
+        //        }
+        //    }
+        //});
     }
 }
