@@ -131,9 +131,7 @@ public class RatSightingTest {
 
     @Test
     public void HTTP_Test() {
-        String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/register", "{\"login_name\": \"androidusr4\",\"password\": \"password\",\"contact_info\": \"test@test.com\"}");
-        assertEquals("Register Successful", HTTPPostReq.getMessage(resp));
-        assertEquals("test",HTTPPostReq.getToken(resp));
+        HTTPPostReq.register("androidusr1", "password","test@test.com",false);
     }
 
 

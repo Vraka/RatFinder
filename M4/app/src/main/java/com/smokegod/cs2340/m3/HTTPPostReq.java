@@ -14,6 +14,20 @@ import java.net.URL;
 
 public class HTTPPostReq {
 
+    private static String token;
+
+    public HTTPPostReq() {
+        token = null;
+    }
+
+    private static void setToken(String token_input) {
+        HTTPPostReq.token = token_input;
+    }
+
+    public static String getToken() {
+        return token;
+    }
+
     public static String sendPost(String urlStr, String dataJSON) {
         HttpURLConnection conn = null;
         try {
@@ -55,7 +69,35 @@ public class HTTPPostReq {
 
     }
 
-    public static String getMessage(String jsonString) {
+    public static int login(String login_name, String password) {
+        String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/login", "{\"login_name\": \""+login_name+"\",\"password\": \""+password+"\"}");
+        String msg = parseMessage(resp);
+        if(msg.equalsIgnoreCase("login successful")) {
+            setToken(parseToken(resp));
+            return 0;
+        } else if(msg.equalsIgnoreCase("cannot find user")) {
+            return 2;
+        } else if(msg.equalsIgnoreCase("incorrect password")) {
+            return 1;
+        } else {
+            return -1;
+        }
+    }
+
+    public static int register(String login_name, String password, String contact_info, boolean isAdmin) {
+        String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/register", "{\"login_name\": \""+login_name+"\",\"password\": \""+password+"\",\"contact_info\": \""+contact_info+"\",\"isAdmin\": "+isAdmin+"}");
+        String msg = parseMessage(resp);
+        if(msg.equalsIgnoreCase("database error")) {
+            return 1;
+        } else if(msg.equalsIgnoreCase("register successful")) {
+            setToken(parseToken(resp));
+            return 0;
+        } else {
+            return -1;
+        }
+    }
+
+    private static String parseMessage(String jsonString) {
         String msg = "\"msg\":\"";
         String secondhalf = jsonString.substring(jsonString.indexOf(msg)+msg.length(),jsonString.length());
         String response = secondhalf.substring(0, secondhalf.indexOf("\""));
@@ -63,7 +105,7 @@ public class HTTPPostReq {
 
     }
 
-    public static String getToken(String jsonString) {
+    private static String parseToken(String jsonString) {
         String msg = "\"token\":\"";
         String secondhalf = jsonString.substring(jsonString.indexOf(msg)+msg.length(),jsonString.length());
         String response = secondhalf.substring(0, secondhalf.indexOf("\""));
