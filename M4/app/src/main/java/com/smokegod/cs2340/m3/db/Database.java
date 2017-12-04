@@ -1,6 +1,7 @@
 package com.smokegod.cs2340.m3.db;
 
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -13,7 +14,7 @@ import java.util.Scanner;
  */
 
 public class Database {
-    public static void register(String email, String password) {
+    public static void register(String email, String password) throws IOException{
         https://desolate-taiga-94108.herokuapp.com/api/
 
         try {
@@ -31,10 +32,13 @@ public class Database {
                 Scanner scanner = new Scanner(con.getInputStream());
                 String responseBody = scanner.useDelimiter("\\A").next();
                 System.out.println(responseBody);
+            } catch (Exception e) {
+
             }
 //            out.writeBytes(ParameterStringBuilder.getParamsString(parameters));
 //            out.flush();
 //            out.close();
+//
         } catch (Exception e) {
 
         }
