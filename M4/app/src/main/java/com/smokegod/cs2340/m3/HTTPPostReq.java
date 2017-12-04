@@ -14,7 +14,7 @@ import java.net.URL;
 
 public class HTTPPostReq {
 
-    private static String sendPost(String urlStr, String dataJSON) {
+    public static String sendPost(String urlStr, String dataJSON) {
         HttpURLConnection conn = null;
         try {
 
@@ -52,6 +52,22 @@ public class HTTPPostReq {
                 conn.disconnect();
             }
         }
+
+    }
+
+    public static String getMessage(String jsonString) {
+        String msg = "\"msg\":\"";
+        String secondhalf = jsonString.substring(jsonString.indexOf(msg)+msg.length(),jsonString.length());
+        String response = secondhalf.substring(0, secondhalf.indexOf("\""));
+        return response;
+
+    }
+
+    public static String getToken(String jsonString) {
+        String msg = "\"token\":\"";
+        String secondhalf = jsonString.substring(jsonString.indexOf(msg)+msg.length(),jsonString.length());
+        String response = secondhalf.substring(0, secondhalf.indexOf("\""));
+        return response;
 
     }
 

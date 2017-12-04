@@ -7,8 +7,6 @@ package com.smokegod.cs2340.m3;
 
 import android.util.Log;
 
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.impl.client.HttpClients;
 import org.json.JSONObject;
 import org.junit.Test;
 
@@ -31,7 +29,6 @@ import java.util.stream.Collectors;
 
 import javax.net.ssl.HttpsURLConnection;
 
-import static org.apache.http.HttpHeaders.USER_AGENT;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -134,145 +131,10 @@ public class RatSightingTest {
 
     @Test
     public void HTTP_Test() {
-        //assertEquals("test",sendPost());
-        assertEquals("test", sendPost("https://desolate-taiga-94108.herokuapp.com/api/register", "{\"login_name\": \"androidusr2\",\"password\": \"password\",\"contact_info\": \"test@test.com\"}"));
-    }
-
-    private static String sendPost(String urlStr, String dataJSON) {
-        HttpURLConnection conn = null;
-        try {
-
-            URL url = new URL(urlStr);
-            conn = (HttpURLConnection) url.openConnection();
-            conn.setConnectTimeout(5000);
-            conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-            conn.setDoOutput(true);
-            conn.setDoInput(true);
-            conn.setRequestMethod("POST");
-
-            OutputStream os = conn.getOutputStream();
-            os.write(dataJSON.getBytes("UTF-8"));
-            os.close();
-
-            int responseCode = conn.getResponseCode();
-            System.out.println("\nSending 'POST' request to URL : " + url);
-            System.out.println("Response Code : " + responseCode);
-
-            // read the response
-            InputStream in = new BufferedInputStream(conn.getInputStream());
-            BufferedReader br = new BufferedReader(new InputStreamReader(in));
-            StringBuilder sb = new StringBuilder();
-            String line;
-            while ((line = br.readLine()) != null) {
-                sb.append(line+"\n");
-            }
-            br.close();
-            System.out.println("Message: " + sb.toString());
-            return sb.toString();
-        } catch (Exception e) {
-            return e.getMessage();
-        } finally {
-            if (conn != null) {
-                conn.disconnect();
-            }
-        }
-
+        String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/register", "{\"login_name\": \"androidusr4\",\"password\": \"password\",\"contact_info\": \"test@test.com\"}");
+        assertEquals("Register Successful", HTTPPostReq.getMessage(resp));
+        assertEquals("test",HTTPPostReq.getToken(resp));
     }
 
 
-    /*private String sendPost(){
-        HttpsURLConnection con = null;
-        try {
-            String url = "https://desolate-taiga-94108.herokuapp.com/api/register";
-            URL obj = new URL(url);
-            con = (HttpsURLConnection) obj.openConnection();
-
-            //add reuqest header
-            con.setRequestMethod("POST");
-            con.setRequestProperty("User-Agent", USER_AGENT);
-            con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
-
-            String urlParameters = "login_name=username&password=password&contact_infor=test@test.com&isAdmin=true";
-
-            // Send post request
-            con.setDoOutput(true);
-            DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-            wr.writeBytes(urlParameters);
-            wr.flush();
-            wr.close();
-
-            int responseCode = con.getResponseCode();
-            System.out.println("\nSending 'POST' request to URL : " + url);
-            System.out.println("Post parameters : " + urlParameters);
-            System.out.println("Response Code : " + responseCode);
-
-            BufferedReader in = new BufferedReader(
-                    new InputStreamReader(con.getInputStream()));
-            StringBuilder sb = new StringBuilder();
-            String line;
-            while ((line = in.readLine()) != null) {
-                sb.append(line+"\n");
-            }
-            in.close();
-            System.out.println("Message: " + sb.toString());
-            return sb.toString();
-
-            //print result
-        } catch (Exception e) {
-            return e.getMessage();
-        } finally {
-            if (con != null) {
-                con.disconnect();
-            }
-        }
-
-    }
-
-    private String attemptRegister() {
-        HttpURLConnection client = null;
-        String output = "";
-
-        try {
-            URL url = new URL("https://desolate-taiga-94108.herokuapp.com/api/register");
-            client = (HttpURLConnection) url.openConnection();
-            client.setRequestMethod("POST");
-            //HashMap<String, String> params = new HashMap<String, String>();
-            //params.put("login_name", "username");
-            //params.put("password", "password");
-            //params.put("contact_info", "test@test.com");
-            //params.put("isAdmin", "true");
-            client.setRequestProperty("login_name","username");
-            client.setRequestProperty("password","password");
-            client.setRequestProperty("contact_info","test@test.com");
-            client.setRequestProperty("isAdmin","true");
-            client.setDoOutput(true);
-            BufferedOutputStream outputPost = new BufferedOutputStream(client.getOutputStream());
-            Scanner scanner = new Scanner(client.getInputStream());
-            while(scanner.hasNext()) {
-                output += scanner.nextLine();
-            }
-
-            outputPost.flush();
-            outputPost.close();
-        } catch (Exception e) {
-
-        } finally {
-            if(client != null) // Make sure the connection is not null.
-                client.disconnect();
-        }
-
-        return output;
-        //mAuth.createUserWithEmailAndPassword(usernameET.getEditableText().toString(),
-        //        passwordET.getEditableText().toString()).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-        //   @Override
-        //    public void onComplete(@NonNull Task<AuthResult> task) {
-        //        if (!task.isSuccessful()) {
-        //            Toast t = Toast.makeText(RegisterActivity.this, "There seems to be an error " +
-        //                            "with your registration information! Maybe try a longer password!",
-        //                    Toast.LENGTH_LONG);
-        //            t.show();
-        //        }
-        //    }
-        //});
-    }*/
 }
