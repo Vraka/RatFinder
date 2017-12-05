@@ -131,7 +131,8 @@ public class RatSightingTest {
 
     @Test
     public void HTTP_Test() {
-        HTTPPostReq.login("androidusr1","password");
+        RatSighting rat = new RatSighting("key", "date", "3+ Family Mixed Use Building", "10000", "test", "NEW YORK", "MANHATTAN", "100", "100");
+        HTTPPostReq.addSighting(rat);
 
     }
 
