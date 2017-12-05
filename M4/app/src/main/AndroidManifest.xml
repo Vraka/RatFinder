@@ -53,6 +53,7 @@
         <activity android:name=".FilterByDateActivity" />
         <activity android:name=".MarkerInfoActivity" />
         <activity android:name=".SettingsActivity" />
+        <activity android:name=".RegisterAdminActivity" />
         <activity
             android:name=".StatsActivity"
             android:label="@string/title_activity_stats"

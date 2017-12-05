@@ -11,6 +11,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -281,6 +282,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         int id = item.getItemId();
         if (id == R.id.map_nav_menu_item_stats) {
             Intent i = new Intent(MapsActivity.this, StatsActivity.class);
+            startActivity(i);
+        } else if (id == R.id.map_nav_menu_item_uc) {
+            Intent i = new Intent(MapsActivity.this, UserControlActivity.class);
+            startActivity(i);
+        } else if (id == R.id.map_nav_menu_item_home) {
+            drawer.closeDrawer(Gravity.LEFT);
+        } else if (id == R.id.map_nav_menu_item_settings) {
+            Intent i = new Intent(MapsActivity.this, SettingsActivity.class);
             startActivity(i);
         }
         return true;
