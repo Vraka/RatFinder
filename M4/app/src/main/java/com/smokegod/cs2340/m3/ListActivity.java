@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.io.InputStream;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,6 +51,9 @@ public class ListActivity extends Activity implements AbsListView.OnScrollListen
         scoreList = csvFile.read(20);
 
 
+
+
+
         // This is the array adapter, it takes the context of the activity as a
         // first parameter, the type of list view as a second parameter and your
         // array as a third parameter.
@@ -60,6 +64,8 @@ public class ListActivity extends Activity implements AbsListView.OnScrollListen
                 scoreList);
 
         lv.setAdapter(arrayAdapter);
+
+
     }
 
     @Override

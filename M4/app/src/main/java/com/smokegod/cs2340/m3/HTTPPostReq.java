@@ -3,6 +3,11 @@ package com.smokegod.cs2340.m3;
 import android.os.StrictMode;
 import android.util.Log;
 
+import com.auth0.android.jwt.JWT;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -10,6 +15,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * Created by Vraka on 12/4/2017.
@@ -73,10 +80,10 @@ public class HTTPPostReq {
             }
             br.close();
             System.out.println("Message: " + sb.toString());
-            Log.d("Database: SBSTRING", sb.toString());
+            //Log.d("Database: SBSTRING", sb.toString());
             return sb.toString();
         } catch (Exception e) {
-            Log.d("Database: Error", e.toString());
+            //Log.d("Database: Error", e.toString());
             return e.getMessage();
         } finally {
             if (conn != null) {
@@ -86,13 +93,35 @@ public class HTTPPostReq {
 
     }
 
+    public static ArrayList<RatSighting> getSightings(int limit, int offset) {
+        ArrayList<RatSighting> list = new ArrayList<>();
+        String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/rats", "{\"token\": \""+getToken()+"\",\"limit\":"+limit+", \"offset\":"+offset+"}");
+        try {
+            JSONObject json = new JSONObject(resp);
+            Log.d("DATABASE", json.toString());
+            JSONArray jsonArray = json.getJSONObject("body").getJSONArray("data");
+            Log.d("DATABASE", jsonArray.toString());
+            if (jsonArray != null) {
+                int len = jsonArray.length();
+                for (int i=0;i<len;i++){
+                    JSONObject ratSighting = jsonArray.getJSONObject(i);
+                    list.add(new RatSighting(ratSighting.getString("Unique_Key"), ratSighting.getString("Created_Date"), ratSighting.getString("Location_Type"), ratSighting.getString("Incident_Zip"), ratSighting.getString("Incident_Address"), ratSighting.getString("City"), ratSighting.getString("Borough"), ratSighting.getString("Latitude"),ratSighting.getString("Longitude")));
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+        return list;
+    }
+
     public static int login(String login_name, String password) {
         String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/login", "{\"login_name\": \""+login_name+"\",\"password\": \""+password+"\"}");
         String msg = parseMessage(resp);
         if(msg.equalsIgnoreCase("login successful")) {
             setToken(parseToken(resp));
-
-            //System.out.println(Jwt.);
+            JWT jwt = new JWT(getToken());
+            setAdmin(jwt.getClaim("isAdmin").asBoolean());
+            System.out.println(isAdmin);
             return 0;
         } else if(msg.equalsIgnoreCase("cannot find user")) {
             return 2;

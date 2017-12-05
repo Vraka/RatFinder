@@ -66,6 +66,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         Log.d("TEXTVIEWE", "about to call");
         drawer.closeDrawers();
         navigationView.setNavigationItemSelectedListener(this);
+        ArrayList<RatSighting> list = HTTPPostReq.getSightings(20,0);
+        Log.d("DATABASE", "" + list.size());
+        for(int i = 0; i < list.size(); i++) {
+            Log.d("DATABASE", list.get(i).toString());
+        }
 //        String title = "U Dirty Rat";
 //        SpannableString s = new SpannableString(title);
 //        s.setSpan(new ForegroundColorSpan(Color.WHITE), 0, title.length(),
