@@ -115,6 +115,7 @@ public class HTTPPostReq {
 
     public static ArrayList<RatSighting> sort(String sortBy, String data, int limit, int offset) {
         if(sortBy.equalsIgnoreCase("date")) {
+            Log.d("DATABASE",data);
             return searchDate(data.substring(0,data.indexOf(",")), data.substring(data.indexOf(",") + 1), limit, offset);
         } else if(sortBy.equalsIgnoreCase("borough")) {
             return searchBorough(data, limit, offset);
@@ -129,7 +130,10 @@ public class HTTPPostReq {
 
     private static ArrayList<RatSighting> searchDate(String start_date, String end_date, int limit, int offset) {
         ArrayList<RatSighting> list = new ArrayList<>();
+        String post ="{\"token\":\""+getToken()+"\", \"End_Date\":\""+end_date+"\", \"Start_Date\":\""+start_date+"\", \"limit\":"+limit+", \"offset\":"+offset+"}";
+        Log.d("DATABASE", post);
         String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/search/dateRange", "{\"token\":\""+getToken()+"\", \"End_Date\":\""+end_date+"\", \"Start_Date\":\""+start_date+"\", \"limit\":"+limit+", \"offset\":"+offset+"}");
+
         try {
             JSONObject json = new JSONObject(resp);
             Log.d("DATABASE", json.toString());

@@ -8,9 +8,57 @@
     android:background="@color/colorPrimaryDark"
     tools:context="com.smokegod.cs2340.m3.SettingsActivity">
 
-    <ListView
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="520dp"/>
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:theme="@style/AppTheme_NoActionBar.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:paddingBottom="100dp"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/AppTheme_NoActionBar.PopupOverlay">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
+                    android:layout_centerInParent="true"
+                    android:text="Title"/>
+
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+
+    <Button
+        android:text="Change Username"
+        android:onClick="attemptLogout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:text="Change Email"
+        android:onClick="attemptLogout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:text="Change Password"
+        android:onClick="attemptLogout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <Button
         android:text="Logout"
