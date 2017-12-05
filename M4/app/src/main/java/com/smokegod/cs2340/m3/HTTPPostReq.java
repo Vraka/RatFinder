@@ -13,7 +13,6 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -94,7 +93,12 @@ public class HTTPPostReq {
     }
 
     public static boolean addSighting(RatSighting sighting) {
-        String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/addRat", "{\"token\": \""+getToken()+"\",\"Location_Type\":"+sighting.getLoc_type()+", \"Incident_Zip\":"+sighting.getZip()+",\"Incident_Address\":" + sighting.getAddress() + ",\"City\":" + sighting.getCity() + ",\"Borough\":" + sighting.getBorough() + ",\"Latitude\":" + sighting.getLatitude() + ",\"Longitude\":" + sighting.getLongitude() + "}");
+        String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/addRat",
+                "{\"token\": \""+getToken()+"\",\"Location_Type\":"+sighting.getLoc_type()+
+                        ", \"Incident_Zip\":"+sighting.getZip()+",\"Incident_Address\":" +
+                        sighting.getAddress() + ",\"City\":" + sighting.getCity() + ",\"Borough\":" +
+                        sighting.getBorough() + ",\"Latitude\":" + sighting.getLatitude() +
+                        ",\"Longitude\":" + sighting.getLongitude() + "}");
         Log.d("DATABASE", resp);
         String msg = parseMessage(resp);
         if(msg.equalsIgnoreCase("rat added successfully")) {

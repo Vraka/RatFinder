@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/colorPrimary"
     tools:context="com.smokegod.cs2340.m3.SplashActivity">
 
     <RelativeLayout
@@ -16,6 +17,7 @@
             android:layout_height="200dp"
             android:layout_centerInParent="true"
             android:layout_marginTop="100dp"
+            android:tint="@color/colorPrimaryDark"
             android:src="@drawable/rat_logo" />
     </RelativeLayout>
 
@@ -29,6 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:text="U Dirty Rat"
+            android:textColor="@color/colorPrimaryDark"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
