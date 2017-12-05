@@ -364,7 +364,7 @@ public class HTTPPostReq {
     }
 
     public static boolean changeLoginName(String login_name, String password) {
-        String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/account/changeLoginName", "{\"token\": \""+getToken()+"\"\"login_name\": \""+login_name+"\",\"password\": \""+password+"\"}");
+        String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/account/changeLoginName", "{\"token\": \""+getToken()+"\",\"login_name\": \""+login_name+"\",\"password\": \""+password+"\"}");
         String status = parseStatus(resp);
         if(status.equalsIgnoreCase("200")) {
             setToken(parseToken(resp));
@@ -375,7 +375,7 @@ public class HTTPPostReq {
         }
     }
     public static boolean changeContactInfo(String contact_info, String password) {
-        String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/account/changeContactInfo", "{\"token\": \""+getToken()+"\"\"contact_info\": \""+contact_info+"\",\"password\": \""+password+"\"}");
+        String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/account/changeContactInfo", "{\"token\": \""+getToken()+"\",\"contact_info\": \""+contact_info+"\",\"password\": \""+password+"\"}");
         String status = parseStatus(resp);
         if(status.equalsIgnoreCase("200")) {
             setToken(parseToken(resp));
@@ -385,7 +385,7 @@ public class HTTPPostReq {
         }
     }
     public static boolean changePassword(String newpassword, String oldpassword) {
-        String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/account/changePassword", "{\"token\": \""+getToken()+"\"\"newpassword\": \""+newpassword+"\",\"password\": \""+oldpassword+"\"}");
+        String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/account/changePassword", "{\"token\": \""+getToken()+"\",\"newpassword\": \""+newpassword+"\",\"password\": \""+oldpassword+"\"}");
         String status = parseStatus(resp);
         if(status.equalsIgnoreCase("200")) {
             return true;
