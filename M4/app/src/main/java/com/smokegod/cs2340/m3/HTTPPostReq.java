@@ -382,7 +382,7 @@ public class HTTPPostReq {
     }
 
     public static HashMap<String, Integer> countBorough() {
-        String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/stats/countBorough", "{\"token\": \""+getToken()+"}");
+        String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/stats/countBorough", "{\"token\": \""+getToken()+"\"}");
         HashMap<String, Integer> stats = new HashMap<>();
         try {
             JSONObject json = new JSONObject(resp);
@@ -398,7 +398,7 @@ public class HTTPPostReq {
     }
 
     public static HashMap<String, Integer> countLocationType() {
-        String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/stats/countLocationType", "{\"token\": \""+getToken()+"}");
+        String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/stats/countLocationType", "{\"token\": \""+getToken()+"\"}");
         HashMap<String, Integer> stats = new HashMap<>();
         try {
             JSONObject json = new JSONObject(resp);
