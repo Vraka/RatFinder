@@ -223,9 +223,11 @@ public class HTTPPostReq {
         return list;
     }
 
+
+
     public static boolean lockUser(String id) {
 
-        String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/users", "{\"token\": \""+getToken()+"\",\"id\": \""+id+"\"}");
+        String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/lock", "{\"token\": \""+getToken()+"\",\"id\": \""+id+"\"}");
         String msg = parseMessage(resp);
         if(msg.equalsIgnoreCase("locked account")) {
             return true;
@@ -237,7 +239,7 @@ public class HTTPPostReq {
 
     public static boolean unlockUser(String id) {
 
-        String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/users", "{\"token\": \""+getToken()+"\",\"id\": \""+id+"\"}");
+        String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/unlock", "{\"token\": \""+getToken()+"\",\"id\": \""+id+"\"}");
         String msg = parseMessage(resp);
         if(msg.equalsIgnoreCase("unlocked account successfully")) {
             return true;
@@ -287,7 +289,7 @@ public class HTTPPostReq {
     }
 
     public static int register(String login_name, String password, String contact_info, boolean isAdmin) {
-        String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/register", "{\"login_name\": \""+login_name+"\",\"password\": \""+password+"\",\"contact_info\": \""+contact_info+"\",\"isAdmin\": "+isAdmin+"}");
+        String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/register", "{\"token\":+\""+getToken()+"\"\"login_name\": \""+login_name+"\",\"password\": \""+password+"\",\"contact_info\": \""+contact_info+"\",\"isAdmin\": "+isAdmin+"}");
         String msg = parseMessage(resp);
         if(msg.equalsIgnoreCase("database error")) {
             return 1;
@@ -296,6 +298,18 @@ public class HTTPPostReq {
             if(isAdmin) {
                 setAdmin(true);
             }
+            return 0;
+        } else {
+            return -1;
+        }
+    }
+
+    public static int createAdmin(String login_name, String password, String contact_info, boolean isAdmin) {
+        String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/createUser", "{\"token\":+\""+getToken()+"\"\"login_name\": \""+login_name+"\",\"password\": \""+password+"\",\"contact_info\": \""+contact_info+"\",\"isAdmin\": "+isAdmin+"}");
+        String msg = parseMessage(resp);
+        if(msg.equalsIgnoreCase("database error")) {
+            return 1;
+        } else if(msg.equalsIgnoreCase("register successful")) {
             return 0;
         } else {
             return -1;
