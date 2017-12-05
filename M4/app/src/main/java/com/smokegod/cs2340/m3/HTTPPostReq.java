@@ -261,7 +261,12 @@ public class HTTPPostReq {
         }
 
     }
-    
+
+    public static boolean deleteUser(String id) {
+        String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/deleteUser", "{\"token\": \""+getToken()+"\",\"id\": \""+id+"\"}");
+        return false;
+    }
+
     public static ArrayList<RatSighting> getSightings(int limit, int offset) {
         ArrayList<RatSighting> list = new ArrayList<>();
         String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/rats", "{\"token\": \""+getToken()+"\",\"limit\":"+limit+", \"offset\":"+offset+"}");
