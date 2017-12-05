@@ -33,15 +33,15 @@ public class HTTPPostReq {
         isAdmin = false;
     }
 
-    private static void setUsername(String username_input) {
-        token = username_input;
+    protected static void setUsername(String username_input) {
+         username = username_input;
     }
 
     public static String getUsername() {
         return username;
     }
 
-    public static void setToken(String token_input) {
+    protected static void setToken(String token_input) {
         HTTPPostReq.token = token_input;
     }
 

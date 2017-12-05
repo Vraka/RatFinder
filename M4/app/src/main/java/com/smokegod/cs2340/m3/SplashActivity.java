@@ -23,8 +23,10 @@ public class SplashActivity extends AppCompatActivity {
                 new HTTPPostReq();
                 SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
                 String token = pref.getString("TOKEN", null);
-                if (token != null) {
+                String username = pref.getString("LOGIN_NAME", null);
+                if (token != null && username != null) {
                     HTTPPostReq.setToken(token);
+                    HTTPPostReq.setUsername(username);
                     Intent i = new Intent(SplashActivity.this, MapsActivity.class);
                     startActivity(i);
                     finish();
