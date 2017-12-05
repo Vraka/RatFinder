@@ -261,9 +261,7 @@ public class HTTPPostReq {
         }
 
     }
-
-    public 
-
+    
     public static ArrayList<RatSighting> getSightings(int limit, int offset) {
         ArrayList<RatSighting> list = new ArrayList<>();
         String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/rats", "{\"token\": \""+getToken()+"\",\"limit\":"+limit+", \"offset\":"+offset+"}");
