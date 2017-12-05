@@ -138,7 +138,7 @@ public class HTTPPostReq {
                 int len = jsonArray.length();
                 for (int i=0;i<len;i++){
                     JSONObject ratSighting = jsonArray.getJSONObject(i);
-                    list.add(new RatSighting(ratSighting.getString("Unique_Key"), ratSighting.getString("Created_Date"), ratSighting.getString("Location_Type"), ratSighting.getString("Incident_Zip"), ratSighting.getString("Incident_Address"), ratSighting.getString("City"), ratSighting.getString("Borough"), ratSighting.getString("Latitude"),ratSighting.getString("Longitude")));
+                    list.add(new RatSighting(ratSighting.get("Unique_Key").toString(), ratSighting.get("Created_Date").toString(), ratSighting.getString("Location_Type"), ratSighting.get("Incident_Zip").toString(), ratSighting.getString("Incident_Address"), ratSighting.getString("City"), ratSighting.getString("Borough"), ratSighting.get("Latitude").toString(),ratSighting.get("Longitude").toString()));
                 }
             }
         } catch (Exception e) {
@@ -159,7 +159,7 @@ public class HTTPPostReq {
                 int len = jsonArray.length();
                 for (int i=0;i<len;i++){
                     JSONObject ratSighting = jsonArray.getJSONObject(i);
-                    list.add(new RatSighting(ratSighting.getString("Unique_Key"), ratSighting.getString("Created_Date"), ratSighting.getString("Location_Type"), ratSighting.getString("Incident_Zip"), ratSighting.getString("Incident_Address"), ratSighting.getString("City"), ratSighting.getString("Borough"), ratSighting.getString("Latitude"),ratSighting.getString("Longitude")));
+                    list.add(new RatSighting(ratSighting.get("Unique_Key").toString(), ratSighting.get("Created_Date").toString(), ratSighting.getString("Location_Type"), ratSighting.get("Incident_Zip").toString(), ratSighting.getString("Incident_Address"), ratSighting.getString("City"), ratSighting.getString("Borough"), ratSighting.get("Latitude").toString(),ratSighting.get("Longitude").toString()));
                 }
             }
         } catch (Exception e) {
@@ -180,7 +180,7 @@ public class HTTPPostReq {
                 int len = jsonArray.length();
                 for (int i=0;i<len;i++){
                     JSONObject ratSighting = jsonArray.getJSONObject(i);
-                    list.add(new RatSighting(ratSighting.getString("Unique_Key"), ratSighting.getString("Created_Date"), ratSighting.getString("Location_Type"), ratSighting.getString("Incident_Zip"), ratSighting.getString("Incident_Address"), ratSighting.getString("City"), ratSighting.getString("Borough"), ratSighting.getString("Latitude"),ratSighting.getString("Longitude")));
+                    list.add(new RatSighting(ratSighting.get("Unique_Key").toString(), ratSighting.get("Created_Date").toString(), ratSighting.getString("Location_Type"), ratSighting.get("Incident_Zip").toString(), ratSighting.getString("Incident_Address"), ratSighting.getString("City"), ratSighting.getString("Borough"), ratSighting.get("Latitude").toString(),ratSighting.get("Longitude").toString()));
                 }
             }
         } catch (Exception e) {
@@ -201,7 +201,7 @@ public class HTTPPostReq {
                 int len = jsonArray.length();
                 for (int i=0;i<len;i++){
                     JSONObject ratSighting = jsonArray.getJSONObject(i);
-                    list.add(new RatSighting(ratSighting.getString("Unique_Key"), ratSighting.getString("Created_Date"), ratSighting.getString("Location_Type"), ratSighting.getString("Incident_Zip"), ratSighting.getString("Incident_Address"), ratSighting.getString("City"), ratSighting.getString("Borough"), ratSighting.getString("Latitude"),ratSighting.getString("Longitude")));
+                    list.add(new RatSighting(ratSighting.get("Unique_Key").toString(), ratSighting.get("Created_Date").toString(), ratSighting.getString("Location_Type"), ratSighting.get("Incident_Zip").toString(), ratSighting.getString("Incident_Address"), ratSighting.getString("City"), ratSighting.getString("Borough"), ratSighting.get("Latitude").toString(),ratSighting.get("Longitude").toString()));
                 }
             }
         } catch (Exception e) {
