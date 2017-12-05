@@ -2,6 +2,7 @@ package com.smokegod.cs2340.m3;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -42,6 +43,9 @@ public class RegisterAdminActivity extends Activity {
             t.show();
         }
 
+    }
+    public void cancel(View v) {
+        finish();
     }
 
 }

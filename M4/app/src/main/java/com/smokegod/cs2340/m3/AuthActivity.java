@@ -3,6 +3,7 @@ package com.smokegod.cs2340.m3;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -57,6 +58,10 @@ public class AuthActivity extends AppCompatActivity {
 
                             switch (result) {
                                 case (0):
+                                    SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
+                                    SharedPreferences.Editor editor = pref.edit();
+                                    editor.putString("TOKEN", HTTPPostReq.getToken());
+                                    editor.commit();
                                     Intent i = new Intent(AuthActivity.this, MapsActivity.class);
                                     startActivity(i);
                                     finish();

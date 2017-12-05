@@ -2,17 +2,44 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="16dp"
     android:weightSum="1">
 
-    <TextView
-        android:id="@+id/textView10"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Create Admin Account"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:layout_weight="0.10" />
+        android:layout_marginBottom="40dp">
+
+        <ImageView
+            android:id="@+id/ratLogo"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/rat_logo"
+            android:tint="@color/colorPrimaryDark" />
+
+        <ImageView
+            android:id="@+id/crown"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/black_small_royal_crown"
+            android:tint="@color/colorPrimaryDark"
+            android:layout_alignTop="@+id/ratLogo"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ratLogo"
+            android:text="Create Admin Account"
+            android:textAlignment="center"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="25sp" />
+    </RelativeLayout>
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
@@ -59,19 +86,34 @@
             android:hint="Confirm Password" />
     </android.support.design.widget.TextInputLayout>
 
-    <Button
-        android:id="@+id/submit"
-        android:onClick="registerAdmin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.10"
-        android:text="Submit" />
 
-    <Button
-        android:id="@+id/cancel"
+    <LinearLayout
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.10"
-        android:text="Cancel" />
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="30dp"
+            android:background="#F00"
+            android:id="@+id/button3"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimary"
+            android:onClick="cancel"
+            android:text="Cancel" />
+
+        <Button
+            android:background="@color/colorPrimaryDark"
+            android:textColor="@color/colorPrimary"
+            android:id="@+id/button2"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:onClick="registerAdmin"
+            android:text="Submit" />
+
+
+    </LinearLayout>
 
 </LinearLayout>

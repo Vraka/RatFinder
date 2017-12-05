@@ -15,6 +15,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -56,6 +57,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         setSupportActionBar(toolbar);
 
         navigationView = (NavigationView) findViewById(R.id.maps_navigation);
+        View v = navigationView.getHeaderView(0);
+        TextView nav_displayName = (TextView) v.findViewById(R.id.nav_user_name_display1);
+        nav_displayName.setText("Shane Austrie");
+
         drawer = (DrawerLayout) findViewById(R.id.maps_drawer);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
