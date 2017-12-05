@@ -109,7 +109,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 //        InputStream inputStream = getResources().openRawResource(R.raw.rat_sightings);
         ArrayList<RatSighting> pointers = new ArrayList<>();
         if (getIntent().hasExtra("start_date") || getIntent().hasExtra("end_date")) {
-
+            Log.d("FILTER", "Date: " + getIntent().getStringExtra("Date"));
+            pointers = HTTPPostReq.sort("date", getIntent().getStringExtra("start_date") + ","
+                    + getIntent().getStringExtra("end_date"), 50, 0);
         } else if(getIntent().hasExtra("borough")) {
             Log.d("FILTER", "Borough: " + getIntent().getStringExtra("borough"));
             pointers = HTTPPostReq.sort("borough", getIntent().getStringExtra("borough"), 50, 0);

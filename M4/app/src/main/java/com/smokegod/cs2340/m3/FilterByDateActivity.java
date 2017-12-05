@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.format.DateFormat;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.Menu;
@@ -13,6 +14,7 @@ import android.view.MenuItem;
 import android.widget.CalendarView;
 
 import java.util.Calendar;
+import java.util.Date;
 
 public class FilterByDateActivity extends AppCompatActivity {
 
@@ -89,9 +91,11 @@ public class FilterByDateActivity extends AppCompatActivity {
             changeHeader();
         } else {
             Intent i = new Intent(FilterByDateActivity.this, MapsActivity.class);
-            Log.d("MapsActivity", "Filter: " + firstDate + " " + secondDate);
-            i.putExtra("FIRST_DATE", firstDate);
-            i.putExtra("SECOND_DATE", secondDate);
+            String dateString1 = DateFormat.format("yyyy-MM-dd", new Date(firstDate)).toString();
+            String dateString2 = DateFormat.format("yyyy-MM-dd", new Date(secondDate)).toString();
+            Log.d("MapsActivity", "Filter: " + dateString1 + " " + dateString2);
+            i.putExtra("start_date", dateString1);
+            i.putExtra("second_date", dateString2);
             startActivity(i);
             finish();
         }

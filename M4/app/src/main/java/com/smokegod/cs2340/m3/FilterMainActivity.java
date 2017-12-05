@@ -18,7 +18,7 @@ public class FilterMainActivity extends Activity {
     }
 
     public void sortByDate(View v) {
-        Intent i = new Intent(FilterMainActivity.this, FilterDateActivity.class);
+        Intent i = new Intent(FilterMainActivity.this, FilterByDateActivity.class);
         startActivity(i);
     }
 
