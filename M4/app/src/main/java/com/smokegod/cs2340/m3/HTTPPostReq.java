@@ -129,7 +129,7 @@ public class HTTPPostReq {
 
     private static ArrayList<RatSighting> searchDate(String start_date, String end_date, int limit, int offset) {
         ArrayList<RatSighting> list = new ArrayList<>();
-        String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/search/dateRange", "{\"token\":\""+getToken()+"\",\"Start_Date\":\""+start_date+"\",\"End_Date\":\"" + end_date + "\", \"limit\":"+limit+", \"offset\":"+offset+"}");
+        String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/search/dateRange", "{\"token\":\""+getToken()+"\", \"End_Date\":\""+end_date+"\", \"Start_Date\":\""+start_date+"\", \"limit\":"+limit+", \"offset\":"+offset+"}");
         try {
             JSONObject json = new JSONObject(resp);
             Log.d("DATABASE", json.toString());
