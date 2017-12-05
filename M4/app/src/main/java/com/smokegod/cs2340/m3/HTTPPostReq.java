@@ -13,6 +13,7 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -101,6 +102,90 @@ public class HTTPPostReq {
         } else {
             return false;
         }
+    }
+
+    public static ArrayList<RatSighting> searchDate(String start_date, String end_date, int limit, int offset) {
+        ArrayList<RatSighting> list = new ArrayList<>();
+        String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/search/dateRange", "{\"token\":\""+getToken()+"\",\"Start_Date\":\""+start_date+"\",\"End_Date\":\"" + end_date + "\", \"limit\":"+limit+", \"offset\":"+offset+"}");
+        try {
+            JSONObject json = new JSONObject(resp);
+            Log.d("DATABASE", json.toString());
+            JSONArray jsonArray = json.getJSONObject("body").getJSONArray("data");
+            Log.d("DATABASE", jsonArray.toString());
+            if (jsonArray != null) {
+                int len = jsonArray.length();
+                for (int i=0;i<len;i++){
+                    JSONObject ratSighting = jsonArray.getJSONObject(i);
+                    list.add(new RatSighting(ratSighting.getString("Unique_Key"), ratSighting.getString("Created_Date"), ratSighting.getString("Location_Type"), ratSighting.getString("Incident_Zip"), ratSighting.getString("Incident_Address"), ratSighting.getString("City"), ratSighting.getString("Borough"), ratSighting.getString("Latitude"),ratSighting.getString("Longitude")));
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+        return list;
+    }
+
+    public static ArrayList<RatSighting> searchBorough(String borough, int limit, int offset) {
+        ArrayList<RatSighting> list = new ArrayList<>();
+        String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/search/Borough", "{\"token\":\""+getToken()+"\",\"Borough\":\"" + borough + "\", \"limit\":"+limit+", \"offset\":"+offset+"}");
+        try {
+            JSONObject json = new JSONObject(resp);
+            Log.d("DATABASE", json.toString());
+            JSONArray jsonArray = json.getJSONObject("body").getJSONArray("data");
+            Log.d("DATABASE", jsonArray.toString());
+            if (jsonArray != null) {
+                int len = jsonArray.length();
+                for (int i=0;i<len;i++){
+                    JSONObject ratSighting = jsonArray.getJSONObject(i);
+                    list.add(new RatSighting(ratSighting.getString("Unique_Key"), ratSighting.getString("Created_Date"), ratSighting.getString("Location_Type"), ratSighting.getString("Incident_Zip"), ratSighting.getString("Incident_Address"), ratSighting.getString("City"), ratSighting.getString("Borough"), ratSighting.getString("Latitude"),ratSighting.getString("Longitude")));
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+        return list;
+    }
+
+    public static ArrayList<RatSighting> searchZip(String zip, int limit, int offset) {
+        ArrayList<RatSighting> list = new ArrayList<>();
+        String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/search/Incident_Zip", "{\"token\":\""+getToken()+"\",\"Incident_Zip\":\"" + zip + "\", \"limit\":"+limit+", \"offset\":"+offset+"}");
+        try {
+            JSONObject json = new JSONObject(resp);
+            Log.d("DATABASE", json.toString());
+            JSONArray jsonArray = json.getJSONObject("body").getJSONArray("data");
+            Log.d("DATABASE", jsonArray.toString());
+            if (jsonArray != null) {
+                int len = jsonArray.length();
+                for (int i=0;i<len;i++){
+                    JSONObject ratSighting = jsonArray.getJSONObject(i);
+                    list.add(new RatSighting(ratSighting.getString("Unique_Key"), ratSighting.getString("Created_Date"), ratSighting.getString("Location_Type"), ratSighting.getString("Incident_Zip"), ratSighting.getString("Incident_Address"), ratSighting.getString("City"), ratSighting.getString("Borough"), ratSighting.getString("Latitude"),ratSighting.getString("Longitude")));
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+        return list;
+    }
+
+    public static ArrayList<RatSighting> searchLocationType(String loc_type, int limit, int offset) {
+        ArrayList<RatSighting> list = new ArrayList<>();
+        String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/search/Borough", "{\"token\":\""+getToken()+"\",\"Location_Type\":\"" + loc_type + "\", \"limit\":"+limit+", \"offset\":"+offset+"}");
+        try {
+            JSONObject json = new JSONObject(resp);
+            Log.d("DATABASE", json.toString());
+            JSONArray jsonArray = json.getJSONObject("body").getJSONArray("data");
+            Log.d("DATABASE", jsonArray.toString());
+            if (jsonArray != null) {
+                int len = jsonArray.length();
+                for (int i=0;i<len;i++){
+                    JSONObject ratSighting = jsonArray.getJSONObject(i);
+                    list.add(new RatSighting(ratSighting.getString("Unique_Key"), ratSighting.getString("Created_Date"), ratSighting.getString("Location_Type"), ratSighting.getString("Incident_Zip"), ratSighting.getString("Incident_Address"), ratSighting.getString("City"), ratSighting.getString("Borough"), ratSighting.getString("Latitude"),ratSighting.getString("Longitude")));
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+        return list;
     }
 
     public static ArrayList<RatSighting> getSightings(int limit, int offset) {

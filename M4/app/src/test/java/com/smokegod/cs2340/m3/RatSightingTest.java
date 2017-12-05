@@ -132,10 +132,6 @@ public class RatSightingTest {
     @Test
     public void HTTP_Test() {
         HTTPPostReq.login("androidusr1","password");
-        ArrayList<String> list = HTTPPostReq.getSightings();
-        for(int i = 0; i < list.size(); i++) {
-            System.out.println(list.get(i));
-        }
 
     }
 
