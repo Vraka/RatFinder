@@ -1,6 +1,7 @@
 package com.smokegod.cs2340.m3;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -108,6 +109,11 @@ public class RegisterActivity extends AppCompatActivity {
 
         switch (result) {
             case (0):
+                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putString("TOKEN", HTTPPostReq.getToken());
+                editor.putString("LOGIN_NAME", HTTPPostReq.getUsername());
+                editor.commit();
                 Intent i = new Intent(RegisterActivity.this, MapsActivity.class);
                 startActivity(i);
                 finish();

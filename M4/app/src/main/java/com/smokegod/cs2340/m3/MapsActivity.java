@@ -59,7 +59,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         navigationView = (NavigationView) findViewById(R.id.maps_navigation);
         View v = navigationView.getHeaderView(0);
         TextView nav_displayName = (TextView) v.findViewById(R.id.nav_user_name_display1);
-        nav_displayName.setText("Shane Austrie");
+        nav_displayName.setText(HTTPPostReq.getUsername());
 
         drawer = (DrawerLayout) findViewById(R.id.maps_drawer);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -195,9 +195,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         if (id == R.id.action_filter) {
             Intent i = new Intent(MapsActivity.this, FilterMainActivity.class);
-            startActivity(i);
-        } else if (id == R.id.map_nav_menu_item_stats) {
-            Intent i = new Intent(MapsActivity.this, StatsActivity.class);
             startActivity(i);
         }
         return super.onOptionsItemSelected(item);

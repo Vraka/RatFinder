@@ -61,6 +61,7 @@ public class AuthActivity extends AppCompatActivity {
                                     SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
                                     SharedPreferences.Editor editor = pref.edit();
                                     editor.putString("TOKEN", HTTPPostReq.getToken());
+                                    editor.putString("LOGIN_NAME", HTTPPostReq.getUsername());
                                     editor.commit();
                                     Intent i = new Intent(AuthActivity.this, MapsActivity.class);
                                     startActivity(i);
