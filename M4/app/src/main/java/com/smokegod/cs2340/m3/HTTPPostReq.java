@@ -397,4 +397,23 @@ public class HTTPPostReq {
         return stats;
     }
 
+    public static HashMap<String, Integer> countLocationType() {
+        String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/stats/countLocationType", "{\"token\": \""+getToken()+"}");
+        HashMap<String, Integer> stats = new HashMap<>();
+        try {
+            JSONObject json = new JSONObject(resp);
+            stats.put("1-2 Family Dwelling", json.getInt("a"));
+            stats.put("3+ Family Apt. Building", json.getInt("b"));
+            stats.put("3+ Family Mixed Use Building", json.getInt("c"));
+            stats.put("Commercial Building", json.getInt("d"));
+            stats.put("Vacant Lot", json.getInt("e"));
+            stats.put("Construction Site", json.getInt("f"));
+            stats.put("Hospital", json.getInt("g"));
+            stats.put("Catch Basin/Sewer", json.getInt("h"));
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+        return stats;
+    }
+
 }
