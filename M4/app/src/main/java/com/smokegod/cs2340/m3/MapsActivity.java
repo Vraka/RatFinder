@@ -27,6 +27,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback,
                                                                 NavigationView.OnNavigationItemSelectedListener {
@@ -158,7 +159,18 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
 
         });
+
+        HashMap map1 = HTTPPostReq.countBorough();
+        HashMap map2 = HTTPPostReq.countLocationType();
+        for (Object key : map1.keySet()) {
+            Log.d("Stats", key + ": " + map1.get(key));
+        }
+
+        for (Object key : map2.keySet()) {
+            Log.d("Stats", key + ": " + map1.get(key));
+        }
     }
+
 
     public void attemptLogout(View v) {
 //        FirebaseAuth.getInstance().signOut();
