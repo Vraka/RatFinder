@@ -15,7 +15,7 @@
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#80000000"
+            android:background="#000000"
             android:theme="@style/AppTheme.AppBarOverlay">
 
             <android.support.v7.widget.Toolbar
@@ -31,6 +31,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:src="@drawable/rat_logo"
+                    android:tint="@color/colorPrimary"
                     android:textAppearance="@style/TextAppearance.AppCompat" />
 
             </android.support.v7.widget.Toolbar>

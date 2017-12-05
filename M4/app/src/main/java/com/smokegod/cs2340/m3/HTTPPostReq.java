@@ -30,7 +30,6 @@ public class HTTPPostReq {
     public HTTPPostReq() {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        token = null;
         isAdmin = false;
     }
 
@@ -42,7 +41,7 @@ public class HTTPPostReq {
         return username;
     }
 
-    private static void setToken(String token_input) {
+    public static void setToken(String token_input) {
         HTTPPostReq.token = token_input;
     }
 

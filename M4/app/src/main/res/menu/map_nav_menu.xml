@@ -3,29 +3,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:title="Stats"
-        android:id="@+id/map_nav_menu_item_stats"
-        android:icon="@drawable/search_icon"
+        android:title="Home"
+        android:id="@+id/map_nav_menu_item_home"
+        android:icon="@drawable/home"
         android:orderInCategory="100"
         app:showAsAction="always"/>
 
     <item
-        android:title="Settings"
-        android:id="@+id/map_nav_menu_item_settings"
-        android:icon="@drawable/search_icon"
+        android:title="Stats"
+        android:id="@+id/map_nav_menu_item_stats"
+        android:icon="@drawable/pie_chart"
         android:orderInCategory="100"
         app:showAsAction="always"/>
 
     <item
         android:title="User Control"
         android:id="@+id/map_nav_menu_item_uc"
-        android:icon="@drawable/search_icon"
+        android:icon="@drawable/users"
         android:orderInCategory="100"
         app:showAsAction="always"/>
+
     <item
-        android:title="Home"
-        android:id="@+id/map_nav_menu_item_home"
-        android:icon="@drawable/search_icon"
+        android:title="Settings"
+        android:id="@+id/map_nav_menu_item_settings"
+        android:icon="@drawable/settings2"
         android:orderInCategory="100"
         app:showAsAction="always"/>
 

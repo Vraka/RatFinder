@@ -7,12 +7,16 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+//import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+
 public class RegisterActivity extends AppCompatActivity {
 
 //    private FirebaseAuth mAuth;
 //    private FirebaseAuth.AuthStateListener mAuthListener;
     private EditText usernameET, passwordET, password2ET;
 //    private ToggleButton adminTB;
+//    private GoogleSignInOptions gso;
+//    private GoogleSignInClient mGoogleSignInClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +51,23 @@ public class RegisterActivity extends AppCompatActivity {
         usernameET = (EditText) findViewById(R.id.usernameEditTextRegister);
         passwordET = (EditText) findViewById(R.id.passwordEditTextRegister);
         password2ET = (EditText) findViewById(R.id.password2EditTextRegister);
+//        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//                .requestEmail()
+//                .build();
+
+        // Build a GoogleSignInClient with the options specified by gso.
+//        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+//        findViewById(R.id.google_sign_in_button).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                googleSignOn();
+//            }
+//        });
+    }
+
+    private void googleSignOn() {
+
     }
 
     @Override

@@ -1,12 +1,13 @@
 package com.smokegod.cs2340.m3;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -36,34 +37,33 @@ public class InputActivity extends Activity {
         super.onCreate(saveInstanceState);
         setContentView(R.layout.activity_input);
 
-        //Not fully sure why this is here -Shane
-//        if (ContextCompat.checkSelfPermission(InputActivity.this,
-//                android.Manifest.permission.ACCESS_FINE_LOCATION)
-//                != PackageManager.PERMISSION_GRANTED) {
-//
-//            // Should we show an explanation?
-//            if (ActivityCompat.shouldShowRequestPermissionRationale(InputActivity.this,
-//                    android.Manifest.permission.ACCESS_FINE_LOCATION)) {
-//
-//                // Show an explanation to the user *asynchronously* -- don't block
-//                // this thread waiting for the user's response! After the user
-//                // sees the explanation, try again to request the permission.
-//
-//            } else {
-//
-//                // No explanation needed, we can request the permission.
-//
-//                ActivityCompat.requestPermissions(InputActivity.this,
-//                        new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
-//                        MY_PERMISSIONS_REQUEST_READ_CONTACTS);
-//
-//                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-//                // app-defined int constant. The callback method gets the
-//                // result of the request.
-//            }
-//        } else {
-//            checkLocation();
-//        }
+        if (ContextCompat.checkSelfPermission(InputActivity.this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(InputActivity.this,
+                    android.Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+
+            } else {
+
+                // No explanation needed, we can request the permission.
+
+                ActivityCompat.requestPermissions(InputActivity.this,
+                        new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                        MY_PERMISSIONS_REQUEST_READ_CONTACTS);
+
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
+        } else {
+            checkLocation();
+        }
 
         addressET = (EditText) findViewById(R.id.addressET);
         cityET = (EditText) findViewById(R.id.cityET);
@@ -142,8 +142,7 @@ public class InputActivity extends Activity {
     }
 
     public void goToMap(View v) {
-        Intent i = new Intent(InputActivity.this, MapsActivity.class);
-        startActivity(i);
+        finish();
     }
 
     public void submit(View v) {
