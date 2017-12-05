@@ -155,6 +155,8 @@ public class InputActivity extends Activity {
                 Toast t = Toast.makeText(this, "Cant find latitude or longitude using that address", Toast.LENGTH_LONG);
                 t.show();
             }
+            locationTypeSpinner.setSelection(0);
+            boroughSpinner.setSelection(0);
             RatSighting rat = new RatSighting("", "", locationTypeSpinner.getSelectedItem().toString(),
                     zipET.getEditableText().toString(), addressET.getEditableText().toString(),
                     cityET.getEditableText().toString(), boroughSpinner.getSelectedItem().toString(),
