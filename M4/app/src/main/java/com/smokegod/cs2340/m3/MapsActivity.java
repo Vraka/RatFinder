@@ -43,7 +43,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             startActivity(i);
             finish();
         }
-        getExtra(savedInstanceState);
+        //getExtra(savedInstanceState);
         setContentView(R.layout.activity_maps);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -101,26 +101,41 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap = googleMap;
 //        log();
 //        InputStream inputStream = getResources().openRawResource(R.raw.rat_sightings);
-        if (firstDate == -1 || secondDate == -1) {
-            ArrayList<RatSighting> pointers = HTTPPostReq.getSightings(50, 0);
-//                    (new CSVFile(inputStream)).read(50);
-            for (int i = 0; i < 50; i++) {
-                // Add a marker
-                try {
-                    LatLng pointer = new LatLng(Double.parseDouble(pointers.get(i).getLatitude()),
-                            Double.parseDouble(pointers.get(i).getLongitude()));
+        ArrayList<RatSighting> pointers = new ArrayList<>();
+        if (getIntent().hasExtra("start_date") || getIntent().hasExtra("end_date")) {
+
+        } else if(getIntent().hasExtra("borough")) {
+            Log.d("FILTER", "Borough: " + getIntent().getStringExtra("borough"));
+            pointers = HTTPPostReq.sort("borough", getIntent().getStringExtra("borough"), 50, 0);
+        } else if(getIntent().hasExtra("zip")) {
+            Log.d("FILTER", "Zip: " + getIntent().getStringExtra("zip"));
+            pointers = HTTPPostReq.sort("zip", getIntent().getStringExtra("zip"), 50, 0);
+        } else if(getIntent().hasExtra("loc_type")) {
+            Log.d("FILTER", "Loc_type: " + getIntent().getStringExtra("loc_type"));
+            pointers = HTTPPostReq.sort("loc_type", getIntent().getStringExtra("loc_type"), 50, 0);
+        } else {
+            Log.d("FILTER", "none");
+            pointers = HTTPPostReq.getSightings(50, 0);
+        }
+
+//      (new CSVFile(inputStream)).read(50);
+        for (int i = 0; i < pointers.size(); i++) {
+            // Add a marker
+            try {
+                LatLng pointer = new LatLng(Double.parseDouble(pointers.get(i).getLatitude()),
+                        Double.parseDouble(pointers.get(i).getLongitude()));
                     mMap.addMarker(new MarkerOptions().position(pointer)
                             .title(pointers.get(i).toString()));
                     if (i == 0) {
                         mMap.moveCamera(CameraUpdateFactory.newLatLng(pointer));
                     }
-                } catch (Exception e) {
-                    Log.d("MapsActivity", e.toString());
-                }
+            } catch (Exception e) {
+                Log.d("MapsActivity", e.toString());
             }
-        } else {
-            loadSearch();
         }
+        //} else {
+        //    loadSearch();
+        //}
 
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener()
         {
@@ -173,7 +188,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         int id = item.getItemId();
 
         if (id == R.id.action_filter) {
-            Intent i = new Intent(MapsActivity.this, FilterByDateActivity.class);
+            Intent i = new Intent(MapsActivity.this, FilterMainActivity.class);
             startActivity(i);
         } else if (id == R.id.map_nav_menu_item_stats) {
             Intent i = new Intent(MapsActivity.this, StatsActivity.class);
@@ -183,22 +198,26 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     private void getExtra(Bundle savedInstanceState) {
-        if (savedInstanceState == null) {
-            firstDate = getIntent().getLongExtra("FIRST_DATE", -1);
-            secondDate = getIntent().getLongExtra("SECOND_DATE", -1);
-        } else {
-            firstDate = savedInstanceState.getLong("FIRST_DATE", -1);
-            secondDate = savedInstanceState.getLong("SECOND_DATE", -1);
-        }
-//        log();
-        if (!(firstDate == -1) || !(secondDate == -1)) {
-            if (mMap != null) {
-                loadSearch();
-            }
-        }
-
 
     }
+
+//    private void getExtra(Bundle savedInstanceState) {
+//        if (savedInstanceState == null) {
+//            firstDate = getIntent().getLongExtra("FIRST_DATE", -1);
+//            secondDate = getIntent().getLongExtra("SECOND_DATE", -1);
+//        } else {
+//            firstDate = savedInstanceState.getLong("FIRST_DATE", -1);
+//            secondDate = savedInstanceState.getLong("SECOND_DATE", -1);
+//        }
+////        log();
+//        if (!(firstDate == -1) || !(secondDate == -1)) {
+//            if (mMap != null) {
+//                loadSearch();
+//            }
+//        }
+//
+//
+//    }
 
     private void loadSearch() {
         new Thread() {
