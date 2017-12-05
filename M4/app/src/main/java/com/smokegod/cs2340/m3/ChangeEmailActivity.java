@@ -25,6 +25,9 @@ public class ChangeEmailActivity extends AppCompatActivity {
 
         if(password.equalsIgnoreCase(confirmpass)) {
             if(HTTPPostReq.changeContactInfo(newContact,password)) {
+                Toast t = Toast.makeText(ChangeEmailActivity.this, "Successfully changed contact info to " + newContact,
+                        Toast.LENGTH_LONG);
+                t.show();
                 Intent i = new Intent(ChangeEmailActivity.this, MapsActivity.class);
                 startActivity(i);
             } else {
