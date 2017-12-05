@@ -24,6 +24,7 @@ import java.util.ArrayList;
 public class HTTPPostReq {
 
     private static String token;
+    private static String username;
     private static boolean isAdmin;
 
     public HTTPPostReq() {
@@ -31,6 +32,14 @@ public class HTTPPostReq {
         StrictMode.setThreadPolicy(policy);
         token = null;
         isAdmin = false;
+    }
+
+    private static void setUsername(String username_input) {
+        token = username_input;
+    }
+
+    public static String getUsername() {
+        return username;
     }
 
     private static void setToken(String token_input) {
@@ -276,6 +285,7 @@ public class HTTPPostReq {
         if(msg.equalsIgnoreCase("login successful")) {
             setToken(parseToken(resp));
             JWT jwt = new JWT(getToken());
+            setUsername(login_name);
             setAdmin(jwt.getClaim("isAdmin").asBoolean());
             System.out.println(isAdmin);
             return 0;
@@ -295,6 +305,7 @@ public class HTTPPostReq {
             return 1;
         } else if(msg.equalsIgnoreCase("register successful")) {
             setToken(parseToken(resp));
+            setUsername(login_name);
             if(isAdmin) {
                 setAdmin(true);
             }
