@@ -100,10 +100,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        log();
-        InputStream inputStream = getResources().openRawResource(R.raw.rat_sightings);
+//        log();
+//        InputStream inputStream = getResources().openRawResource(R.raw.rat_sightings);
         if (firstDate == -1 || secondDate == -1) {
-            ArrayList<RatSighting> pointers = (new CSVFile(inputStream)).read(50);
+            ArrayList<RatSighting> pointers = HTTPPostReq.getSightings(50, 0);
+//                    (new CSVFile(inputStream)).read(50);
             for (int i = 0; i < 50; i++) {
                 // Add a marker
                 try {
@@ -128,7 +129,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public boolean onMarkerClick(Marker marker) {
                 Intent i = new Intent(MapsActivity.this, MarkerInfoActivity.class);
-//                i.putExtra(marker.)
+                i.putExtra("MARKER_STRING", marker.getTitle());
                 startActivity(i);
                 return true;
             }
@@ -187,7 +188,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             firstDate = savedInstanceState.getLong("FIRST_DATE", -1);
             secondDate = savedInstanceState.getLong("SECOND_DATE", -1);
         }
-        log();
+//        log();
         if (!(firstDate == -1) || !(secondDate == -1)) {
             if (mMap != null) {
                 loadSearch();

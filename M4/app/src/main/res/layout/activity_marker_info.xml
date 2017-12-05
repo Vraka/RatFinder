@@ -8,19 +8,19 @@
     tools:context="com.smokegod.cs2340.m3.MarkerInfoActivity">
 
     <TextView
-        android:id="@+id/markerinfo_locationTV"
+        android:id="@+id/markerinfo_keyTV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Location"/>
+        android:text="Key"/>
 
     <TextView
-        android:id="@+id/markerinfo_timeTV"
+        android:id="@+id/markerinfo_dateTV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Time" />
 
     <TextView
-        android:id="@+id/markerinfo_boroughTV"
+        android:id="@+id/markerinfo_addressTV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Borough" />
