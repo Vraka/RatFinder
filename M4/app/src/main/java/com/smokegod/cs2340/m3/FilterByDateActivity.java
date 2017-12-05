@@ -95,7 +95,7 @@ public class FilterByDateActivity extends AppCompatActivity {
             String dateString2 = DateFormat.format("yyyy-MM-dd", new Date(secondDate)).toString();
             Log.d("MapsActivity", "Filter: " + dateString1 + " " + dateString2);
             i.putExtra("start_date", dateString1);
-            i.putExtra("second_date", dateString2);
+            i.putExtra("end_date", dateString2);
             startActivity(i);
             finish();
         }
