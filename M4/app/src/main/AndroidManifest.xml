@@ -52,7 +52,12 @@
             android:label="@string/title_activity_maps" />
         <activity android:name=".FilterByDateActivity" />
         <activity android:name=".MarkerInfoActivity" />
-        <activity android:name=".SettingsActivity"></activity>
+        <activity android:name=".SettingsActivity" />
+        <activity
+            android:name=".StatsActivity"
+            android:label="@string/title_activity_stats"
+            android:theme="@style/AppTheme_NoActionBar" />
+        <activity android:name=".UserControlActivity"></activity>
     </application>
 
 </manifest>
