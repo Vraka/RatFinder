@@ -26,4 +26,22 @@ public class SettingsActivity extends AppCompatActivity {
         startActivity(i);
         finish();
     }
+
+    public void goTo(View v) {
+        Intent i;
+        switch(v.getId()) {
+            case(R.id.goToPassword):
+                i = new Intent(SettingsActivity.this, ChangePassActivity.class);
+                startActivity(i);
+                break;
+            case(R.id.goToEmail):
+                i = new Intent(SettingsActivity.this, ChangeEmailActivity.class);
+                startActivity(i);
+                break;
+            case(R.id.goToUsername):
+                i = new Intent(SettingsActivity.this, UsernameActivity.class);
+                startActivity(i);
+                break;
+        }
+    }
 }

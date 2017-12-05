@@ -167,7 +167,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
 
         for (Object key : map2.keySet()) {
-            Log.d("Stats", key + ": " + map1.get(key));
+            Log.d("Stats", key + ": " + map2.get(key));
         }
     }
 
