@@ -22,13 +22,11 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorPrimaryDark"
             app:layout_scrollFlags="scroll|enterAlways"
-            app:popupTheme="@style/AppTheme_NoActionBar.PopupOverlay"
-            android:weightSum="1">
+            app:popupTheme="@style/AppTheme_NoActionBar.PopupOverlay">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="match_parent">
+                android:layout_height="match_parent">
                 <TextView
                     android:id="@+id/title"
                     android:layout_width="match_parent"
