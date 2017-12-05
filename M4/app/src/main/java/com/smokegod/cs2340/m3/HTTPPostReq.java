@@ -16,6 +16,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by Vraka on 12/4/2017.
@@ -378,6 +379,22 @@ public class HTTPPostReq {
         } else {
             return false;
         }
+    }
+
+    public static HashMap<String, Integer> countBorough() {
+        String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/stats/countBorough", "{\"token\": \""+getToken()+"}");
+        HashMap<String, Integer> stats = new HashMap<>();
+        try {
+            JSONObject json = new JSONObject(resp);
+            stats.put("MANHATTAN", json.getInt("MANHATTAN"));
+            stats.put("STATEN_ISLAND", json.getInt("STATEN_ISLAND"));
+            stats.put("BRONX", json.getInt("BRONX"));
+            stats.put("QUEENS", json.getInt("QUEENS"));
+            stats.put("BROOKLYN", json.getInt("BROOKLYN"));
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+        return stats;
     }
 
 }
