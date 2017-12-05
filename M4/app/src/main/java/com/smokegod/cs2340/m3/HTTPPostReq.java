@@ -289,7 +289,7 @@ public class HTTPPostReq {
     }
 
     public static int register(String login_name, String password, String contact_info, boolean isAdmin) {
-        String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/register", "{\"token\":+\""+getToken()+"\", \"login_name\": \""+login_name+"\",\"password\": \""+password+"\",\"contact_info\": \""+contact_info+"\",\"isAdmin\": "+isAdmin+"}");
+        String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/register", "{\"token\": \""+getToken()+"\", \"login_name\": \""+login_name+"\",\"password\": \""+password+"\",\"contact_info\": \""+contact_info+"\",\"isAdmin\": "+isAdmin+"}");
         String msg = parseMessage(resp);
         if(msg.equalsIgnoreCase("database error")) {
             return 1;
