@@ -33,7 +33,7 @@ public class HTTPPostReq {
         isAdmin = false;
     }
 
-    private static void setUsername(String username_input) {
+        private static void setUsername(String username_input) {
         token = username_input;
     }
 
