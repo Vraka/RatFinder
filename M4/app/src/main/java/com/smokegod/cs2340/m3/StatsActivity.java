@@ -21,6 +21,8 @@ import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
+import java.util.HashMap;
+
 public class StatsActivity extends AppCompatActivity {
 
     /**
@@ -38,6 +40,7 @@ public class StatsActivity extends AppCompatActivity {
      */
     private ViewPager mViewPager;
     private TextView title;
+    private static HashMap map1, map2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +69,9 @@ public class StatsActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        map1 = HTTPPostReq.countBorough();
+        map2 = HTTPPostReq.countLocationType();
 
     }
 
@@ -106,7 +112,17 @@ public class StatsActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return MonthFragment.newInstance(position + 1);
+            switch (position) {
+                case (0):
+                    return MonthFragment.newInstance(position);
+                case (1):
+                    return BoroughFragment.newInstance(position);
+                case (2):
+                    return LocationTypeFragment.newInstance(position);
+                default:
+                    break;
+            }
+            return null;
         }
 
         @Override
@@ -161,8 +177,6 @@ public class StatsActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_stats, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
 
             GraphView graph = (GraphView) rootView.findViewById(R.id.graph);
             LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(new DataPoint[] {
@@ -206,17 +220,18 @@ public class StatsActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_stats, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
 
             GraphView graph = (GraphView) rootView.findViewById(R.id.graph);
-            BarGraphSeries<DataPoint> series = new BarGraphSeries<DataPoint>(new DataPoint[] {
-                    new DataPoint(0, 1),
-                    new DataPoint(1, 5),
-                    new DataPoint(2, 3),
-                    new DataPoint(3, 2),
-                    new DataPoint(4, 6)
-            });
+
+            DataPoint[] points = new DataPoint[map1.size()];
+            int counter = 0;
+            for (Object key : map1.keySet()) {
+                if (map1.get(key) != null) {
+                    points[counter] = new DataPoint(counter, Integer.valueOf((int) map1.get(key)));
+                    counter++;
+                }
+            }
+            BarGraphSeries<DataPoint> series = new BarGraphSeries<DataPoint>(points);
             graph.addSeries(series);
             return rootView;
         }
@@ -251,17 +266,17 @@ public class StatsActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_stats, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
 
             GraphView graph = (GraphView) rootView.findViewById(R.id.graph);
-            BarGraphSeries<DataPoint> series = new BarGraphSeries<DataPoint>(new DataPoint[] {
-                    new DataPoint(0, 1),
-                    new DataPoint(1, 5),
-                    new DataPoint(2, 3),
-                    new DataPoint(3, 2),
-                    new DataPoint(4, 6)
-            });
+            DataPoint[] points = new DataPoint[map2.size()];
+            int counter = 0;
+            for (Object key : map2.keySet()) {
+                if (map2.get(key) != null) {
+                    points[counter] = new DataPoint(counter, Integer.valueOf((int) map2.get(key)));
+                    counter++;
+                }
+            }
+            BarGraphSeries<DataPoint> series = new BarGraphSeries<DataPoint>(points);
             graph.addSeries(series);
             return rootView;
         }
