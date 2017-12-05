@@ -345,7 +345,7 @@ public class HTTPPostReq {
     private static String parseStatus(String jsonString) {
         String msg = "\"status\":\"";
         String secondhalf = jsonString.substring(jsonString.indexOf(msg)+msg.length(),jsonString.length());
-        String response = secondhalf.substring(0, secondhalf.indexOf("\""));
+        String response = secondhalf.substring(0, secondhalf.indexOf(","));
         return response;
     }
 
