@@ -202,6 +202,51 @@ public class HTTPPostReq {
         return list;
     }
 
+    public static ArrayList<User> getUsers() {
+        ArrayList<User> list = new ArrayList<>();
+        String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/users", "{\"token\": \""+getToken()+"\"}");
+        try {
+            JSONObject json = new JSONObject(resp);
+            Log.d("DATABASE", json.toString());
+            JSONArray jsonArray = json.getJSONObject("body").getJSONArray("data");
+            Log.d("DATABASE", jsonArray.toString());
+            if (jsonArray != null) {
+                int len = jsonArray.length();
+                for (int i=0;i<len;i++){
+                    JSONObject user = jsonArray.getJSONObject(i);
+                    list.add(new User(user.getString("_id"), user.getString("login_name"), user.getString("contact_info"), user.getBoolean("isAdmin"), user.getBoolean("isLocked")));
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+        return list;
+    }
+
+    public static boolean lockUser(String id) {
+
+        String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/users", "{\"token\": \""+getToken()+"\",\"id\": \""+id+"\"}");
+        String msg = parseMessage(resp);
+        if(msg.equalsIgnoreCase("locked account")) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    public static boolean unlockUser(String id) {
+
+        String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/users", "{\"token\": \""+getToken()+"\",\"id\": \""+id+"\"}");
+        String msg = parseMessage(resp);
+        if(msg.equalsIgnoreCase("unlocked account successfully")) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
     public static ArrayList<RatSighting> getSightings(int limit, int offset) {
         ArrayList<RatSighting> list = new ArrayList<>();
         String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/rats", "{\"token\": \""+getToken()+"\",\"limit\":"+limit+", \"offset\":"+offset+"}");
@@ -272,7 +317,5 @@ public class HTTPPostReq {
         return response;
 
     }
-
-    
 
 }
