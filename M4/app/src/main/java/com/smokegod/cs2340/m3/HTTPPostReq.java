@@ -110,9 +110,9 @@ public class HTTPPostReq {
         } else if(sortBy.equalsIgnoreCase("borough")) {
             return searchBorough(data, limit, offset);
         } else if(sortBy.equalsIgnoreCase("zip")) {
-            return searchBorough(data, limit, offset);
-        } else if(sortBy.equalsIgnoreCase("location_type")) {
-            return searchBorough(data, limit, offset);
+            return searchZip(data, limit, offset);
+        } else if(sortBy.equalsIgnoreCase("loc_type")) {
+            return searchLocationType(data, limit, offset);
         } else {
             return new ArrayList<RatSighting>();
         }
@@ -183,7 +183,7 @@ public class HTTPPostReq {
 
     private static ArrayList<RatSighting> searchLocationType(String loc_type, int limit, int offset) {
         ArrayList<RatSighting> list = new ArrayList<>();
-        String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/search/Borough", "{\"token\":\""+getToken()+"\",\"Location_Type\":\"" + loc_type + "\", \"limit\":"+limit+", \"offset\":"+offset+"}");
+        String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/search/Location_Type", "{\"token\":\""+getToken()+"\",\"Location_Type\":\"" + loc_type + "\", \"limit\":"+limit+", \"offset\":"+offset+"}");
         try {
             JSONObject json = new JSONObject(resp);
             Log.d("DATABASE", json.toString());

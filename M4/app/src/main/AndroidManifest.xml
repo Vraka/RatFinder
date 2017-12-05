@@ -35,6 +35,10 @@
         <activity android:name=".ListActivity" />
         <activity android:name=".SightingActivity" />
         <activity android:name=".InputActivity" />
+        <activity android:name=".FilterMainActivity" />
+        <activity android:name=".FilterBoroughActivity" />
+        <activity android:name=".FilterLocActivity" />
+        <activity android:name=".FilterZipActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
