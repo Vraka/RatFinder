@@ -329,7 +329,7 @@ public class HTTPPostReq {
     }
 
     public static int createAdmin(String login_name, String password, String contact_info, boolean isAdmin) {
-        String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/createUser", "{\"token\": \""+getToken()+"\"\"login_name\": \""+login_name+"\",\"password\": \""+password+"\",\"contact_info\": \""+contact_info+"\",\"isAdmin\": "+isAdmin+"}");
+        String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/createUser", "{\"token\":\""+getToken()+"\"\"login_name\": \""+login_name+"\",\"password\": \""+password+"\",\"contact_info\": \""+contact_info+"\",\"isAdmin\": "+isAdmin+"}");
         String msg = parseMessage(resp);
         if(msg.equalsIgnoreCase("database error")) {
             return 1;
@@ -358,13 +358,13 @@ public class HTTPPostReq {
 
     private static String parseStatus(String jsonString) {
         String msg = "\"status\":\"";
-        String secondhalf = jsonString.substring(jsonString.indexOf(msg)+msg.length(),jsonString.length());
+        String secondhalf = jsonString.substring(jsonString.indexOf(msg)+msg.length()+1,jsonString.length());
         String response = secondhalf.substring(0, secondhalf.indexOf(","));
         return response;
     }
 
     public static boolean changeLoginName(String login_name, String password) {
-        String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/account/changeLoginName", "{\"token\": \""+getToken()+"\",\"login_name\": \""+login_name+"\",\"password\": \""+password+"\"}");
+        String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/account/changeLoginName", "{\"token\":\""+getToken()+"\",\"login_name\": \""+login_name+"\",\"password\": \""+password+"\"}");
         String status = parseStatus(resp);
         if(status.equalsIgnoreCase("200")) {
             setToken(parseToken(resp));
@@ -375,8 +375,9 @@ public class HTTPPostReq {
         }
     }
     public static boolean changeContactInfo(String contact_info, String password) {
-        String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/account/changeContactInfo", "{\"token\": \""+getToken()+"\",\"contact_info\": \""+contact_info+"\",\"password\": \""+password+"\"}");
+        String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/account/changeContactInfo", "{\"token\":\""+getToken()+"\",\"contact_info\": \""+contact_info+"\",\"password\": \""+password+"\"}");
         String status = parseStatus(resp);
+        Log.d("POST", status);
         if(status.equalsIgnoreCase("200")) {
             setToken(parseToken(resp));
             return true;
@@ -395,7 +396,7 @@ public class HTTPPostReq {
     }
 
     public static HashMap<String, Integer> countBorough() {
-        String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/stats/countBorough", "{\"token\": \""+getToken()+"\"}");
+        String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/stats/countBorough", "{\"token\":\""+getToken()+"\"}");
         HashMap<String, Integer> stats = new HashMap<>();
         try {
             JSONObject json = new JSONObject(resp);
