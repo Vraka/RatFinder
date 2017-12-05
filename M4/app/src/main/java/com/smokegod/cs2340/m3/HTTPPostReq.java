@@ -315,7 +315,7 @@ public class HTTPPostReq {
     }
 
     public static int createAdmin(String login_name, String password, String contact_info, boolean isAdmin) {
-        String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/createUser", "{\"token\":+\""+getToken()+"\"\"login_name\": \""+login_name+"\",\"password\": \""+password+"\",\"contact_info\": \""+contact_info+"\",\"isAdmin\": "+isAdmin+"}");
+        String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/createUser", "{\"token\": \""+getToken()+"\"\"login_name\": \""+login_name+"\",\"password\": \""+password+"\",\"contact_info\": \""+contact_info+"\",\"isAdmin\": "+isAdmin+"}");
         String msg = parseMessage(resp);
         if(msg.equalsIgnoreCase("database error")) {
             return 1;
@@ -340,6 +340,44 @@ public class HTTPPostReq {
         String response = secondhalf.substring(0, secondhalf.indexOf("\""));
         return response;
 
+    }
+
+    private static String parseStatus(String jsonString) {
+        String msg = "\"status\":\"";
+        String secondhalf = jsonString.substring(jsonString.indexOf(msg)+msg.length(),jsonString.length());
+        String response = secondhalf.substring(0, secondhalf.indexOf("\""));
+        return response;
+    }
+
+    public static boolean changeLoginName(String login_name, String password) {
+        String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/account/changeLoginName", "{\"token\": \""+getToken()+"\"\"login_name\": \""+login_name+"\",\"password\": \""+password+"\"}");
+        String status = parseStatus(resp);
+        if(status.equalsIgnoreCase("200")) {
+            setToken(parseToken(resp));
+            setUsername(login_name);
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public static boolean changeContactInfo(String contact_info, String password) {
+        String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/account/changeContactInfo", "{\"token\": \""+getToken()+"\"\"contact_info\": \""+contact_info+"\",\"password\": \""+password+"\"}");
+        String status = parseStatus(resp);
+        if(status.equalsIgnoreCase("200")) {
+            setToken(parseToken(resp));
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public static boolean changePassword(String newpassword, String oldpassword) {
+        String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/account/changePassword", "{\"token\": \""+getToken()+"\"\"newpassword\": \""+newpassword+"\",\"password\": \""+oldpassword+"\"}");
+        String status = parseStatus(resp);
+        if(status.equalsIgnoreCase("200")) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }
