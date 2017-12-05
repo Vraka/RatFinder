@@ -22,7 +22,6 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -138,7 +137,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     public void attemptLogout(View v) {
-        FirebaseAuth.getInstance().signOut();
+//        FirebaseAuth.getInstance().signOut();
         Intent i = new Intent(MapsActivity.this, AuthActivity.class);
         startActivity(i);
         finish();
@@ -175,6 +174,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         if (id == R.id.action_filter) {
             Intent i = new Intent(MapsActivity.this, FilterByDateActivity.class);
+            startActivity(i);
+        } else if (id == R.id.map_nav_menu_item_stats) {
+            Intent i = new Intent(MapsActivity.this, StatsActivity.class);
             startActivity(i);
         }
         return super.onOptionsItemSelected(item);
@@ -276,6 +278,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.map_nav_menu_item_stats) {
+            Intent i = new Intent(MapsActivity.this, StatsActivity.class);
+            startActivity(i);
+        }
         return true;
     }
 }
