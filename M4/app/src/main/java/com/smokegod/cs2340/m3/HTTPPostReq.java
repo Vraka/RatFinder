@@ -430,4 +430,27 @@ public class HTTPPostReq {
         return stats;
     }
 
+    public static HashMap<String, Integer> countMonth() {
+        String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/stats/countMonth", "{\"token\": \""+getToken()+"\"}");
+        HashMap<String, Integer> stats = new HashMap<>();
+        try {
+            JSONObject json = new JSONObject(resp);
+            stats.put("January", json.getInt("0"));
+            stats.put("February", json.getInt("1"));
+            stats.put("March", json.getInt("2"));
+            stats.put("April", json.getInt("3"));
+            stats.put("May", json.getInt("4"));
+            stats.put("June", json.getInt("5"));
+            stats.put("July", json.getInt("6"));
+            stats.put("August", json.getInt("7"));
+            stats.put("September", json.getInt("8"));
+            stats.put("October", json.getInt("9"));
+            stats.put("November", json.getInt("10"));
+            stats.put("December", json.getInt("11"));
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+        return stats;
+    }
+
 }
