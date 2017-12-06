@@ -453,4 +453,10 @@ public class HTTPPostReq {
         return stats;
     }
 
+    public static boolean deleteUser(int id) {
+        String resp = HTTPPostReq.sendPost("https://desolate-taiga-94108.herokuapp.com/api/deleteUser", "{\"token\": \""+getToken()+"\",\"id\":\"" + id + "\"}");
+        String msg = parseMessage(resp);
+        return (msg.equalsIgnoreCase("removed user"));
+    }
+
 }
